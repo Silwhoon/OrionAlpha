@@ -25,6 +25,7 @@ import game.user.item.InventoryManipulator;
 import game.user.skill.SkillRecord;
 import game.user.stat.SecondaryStat;
 import java.util.List;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -39,14 +40,14 @@ public class WvsContext {
     }
     
     public static OutPacket onInventoryGrow(int ti, int slotMax) {
-        OutPacket packet = new OutPacket(LoopbackPacket.InventoryGrow);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.InventoryGrow);
         packet.encodeByte(ti);
         packet.encodeByte(slotMax);
         return packet;
     }
     
     public static OutPacket onStatChanged(byte onExclRequest, CharacterStat cs, int flag) {
-        OutPacket packet = new OutPacket(LoopbackPacket.StatChanged);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.StatChanged);
         packet.encodeByte(onExclRequest);
         cs.encodeChangeStat(packet, flag);
         packet.encodeInt(0);//EncodeForLocal
@@ -54,7 +55,7 @@ public class WvsContext {
     }
     
     public static OutPacket onTemporaryStatSet(byte onExclRequest, SecondaryStat ss, int flag) {
-        OutPacket packet = new OutPacket(LoopbackPacket.TemporaryStatSet);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.TemporaryStatSet);
         packet.encodeByte(onExclRequest);
         packet.encodeInt(0);//EncodeChangeStat
         ss.encodeForLocal(packet, flag);
@@ -62,20 +63,20 @@ public class WvsContext {
     }
     
     public static OutPacket onTemporaryStatReset(int flag) {
-        OutPacket packet = new OutPacket(LoopbackPacket.TemporaryStatReset);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.TemporaryStatReset);
         packet.encodeInt(flag);
         return packet;
     }
     
     public static OutPacket onBroadcastMsg(byte type, String msg) {
-        OutPacket packet = new OutPacket(LoopbackPacket.BroadcastMsg);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.BroadcastMsg);
         packet.encodeByte(type);
         packet.encodeString(msg);
         return packet;
     }
     
     public static OutPacket onDropPickUpMessage(int dropType, int incMeso, int itemID, int quantity) {
-        OutPacket packet = new OutPacket(LoopbackPacket.DropPickUpMessage);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.DropPickUpMessage);
         packet.encodeByte(dropType);
         if (dropType == DropPickup.AddInventoryItem) {
             packet.encodeInt(itemID);
@@ -87,13 +88,13 @@ public class WvsContext {
     }
     
     public static OutPacket onCashItemExpireMessage(int itemID) {
-        OutPacket packet = new OutPacket(LoopbackPacket.CashItemExpireMessage);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.CashItemExpireMessage);
         packet.encodeInt(itemID);
         return packet;
     }
     
     public static OutPacket onGivePopularityResult(byte type, String characterName, boolean raise) {
-        OutPacket packet = new OutPacket(LoopbackPacket.GivePopularityResult);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.GivePopularityResult);
         packet.encodeByte(type);
         switch (type) {
             case GivePopularityRes.Success:
@@ -106,7 +107,7 @@ public class WvsContext {
     }
     
     public static OutPacket onCharacterInfo(User user) {
-        OutPacket packet = new OutPacket(LoopbackPacket.CharacterInfo);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.CharacterInfo);
         packet.encodeInt(user.getCharacterID());
         packet.encodeByte(user.getCharacter().getCharacterStat().getLevel());
         packet.encodeShort(user.getCharacter().getCharacterStat().getJob());
@@ -116,7 +117,7 @@ public class WvsContext {
     }
     
     public static OutPacket onChangeSkillRecordResult(byte onExclRequest, List<SkillRecord> change) {
-        OutPacket packet = new OutPacket(LoopbackPacket.ChangeSkillRecordResult);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.ChangeSkillRecordResult);
         packet.encodeByte(onExclRequest);
         packet.encodeShort(change.size());
         for (SkillRecord skill : change) {
@@ -127,7 +128,7 @@ public class WvsContext {
     }
     
     public static OutPacket onSkillUseResult(byte onExclRequest) {
-        OutPacket packet = new OutPacket(LoopbackPacket.SkillUseResult);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.SkillUseResult);
         packet.encodeByte(onExclRequest);
         return packet;
     }

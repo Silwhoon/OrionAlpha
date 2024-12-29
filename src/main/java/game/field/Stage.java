@@ -19,6 +19,7 @@ package game.field;
 
 import common.user.DBChar;
 import game.user.User;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -29,7 +30,7 @@ import network.packet.OutPacket;
 public class Stage {
     
     public static OutPacket onSetField(User user, boolean characterData, int s1, int s2, int s3) {
-        OutPacket packet = new OutPacket(LoopbackPacket.SetField);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.SetField);
         packet.encodeByte(user.getChannelID());
         packet.encodeBool(characterData);
         if (!characterData) {

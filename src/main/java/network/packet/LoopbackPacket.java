@@ -22,9 +22,11 @@ package network.packet;
  * @author Eric
  */
 public class LoopbackPacket {
-    public static final byte
+    public static final short
             BEGIN_SOCKET = 0,
-            CheckPasswordResult = 1,
+            CheckPasswordResult = 0,
+            PinOperation = 13,
+
             SelectWorldResult = 2,
             SelectCharacterResult = 3,
             CheckDuplicatedIDResult = 4,

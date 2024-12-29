@@ -17,6 +17,7 @@
  */
 package game.script;
 
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -27,7 +28,7 @@ import network.packet.OutPacket;
 public class ScriptMan {
     
     public static OutPacket onSay(byte speakerTypeID, int speakerTemplateID, String text, boolean prev, boolean next) {
-        OutPacket packet = new OutPacket(LoopbackPacket.ScriptMessage);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.ScriptMessage);
         packet.encodeByte(speakerTypeID);
         packet.encodeInt(speakerTemplateID);
         packet.encodeByte(ScriptMessage.Say);
@@ -38,7 +39,7 @@ public class ScriptMan {
     }
     
     public static OutPacket onAskYesNo(byte speakerTypeID, int speakerTemplateID, String text) {
-        OutPacket packet = new OutPacket(LoopbackPacket.ScriptMessage);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.ScriptMessage);
         packet.encodeByte(speakerTypeID);
         packet.encodeInt(speakerTemplateID);
         packet.encodeByte(ScriptMessage.AskYesNo);
@@ -47,7 +48,7 @@ public class ScriptMan {
     }
     
     public static OutPacket onAskText(byte speakerTypeID, int speakerTemplateID, String msg, String msgDefault, short lenMin, short lenMax) {
-        OutPacket packet = new OutPacket(LoopbackPacket.ScriptMessage);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.ScriptMessage);
         packet.encodeByte(speakerTypeID);
         packet.encodeInt(speakerTemplateID);
         packet.encodeByte(ScriptMessage.AskText);
@@ -59,7 +60,7 @@ public class ScriptMan {
     }
     
     public static OutPacket onAskNumber(byte speakerTypeID, int speakerTemplateID, String msg, int def, int min, int max) {
-        OutPacket packet = new OutPacket(LoopbackPacket.ScriptMessage);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.ScriptMessage);
         packet.encodeByte(speakerTypeID);
         packet.encodeInt(speakerTemplateID);
         packet.encodeByte(ScriptMessage.AskNumber);
@@ -71,7 +72,7 @@ public class ScriptMan {
     }
     
     public static OutPacket onAskMenu(byte speakerTypeID, int speakerTemplateID, String msg) {
-        OutPacket packet = new OutPacket(LoopbackPacket.ScriptMessage);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.ScriptMessage);
         packet.encodeByte(speakerTypeID);
         packet.encodeInt(speakerTemplateID);
         packet.encodeByte(ScriptMessage.AskMenu);
@@ -80,7 +81,7 @@ public class ScriptMan {
     }
     
     public static OutPacket onAskAvatar(byte speakerTypeID, int speakerTemplateID, String msg, int[] canadite) {
-        OutPacket packet = new OutPacket(LoopbackPacket.ScriptMessage);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.ScriptMessage);
         packet.encodeByte(speakerTypeID);
         packet.encodeInt(speakerTemplateID);
         packet.encodeByte(ScriptMessage.AskAvatar);

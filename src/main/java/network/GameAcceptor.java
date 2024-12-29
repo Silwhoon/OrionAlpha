@@ -155,7 +155,6 @@ public class GameAcceptor {
                             ClientSocket socket = new ClientSocket(ch);
                             socket.setAddr(String.format("%s:%d", socket.getSocketRemoteIP(), addr.getPort()));
                             socket.setChannelID(getChannelID());
-                            socket.initSequence();
                             int serialNo = serialNoCounter.incrementAndGet();
                             socket.setLocalSocketSN(serialNo);
                             sn2pSocket.put(serialNo, socket);

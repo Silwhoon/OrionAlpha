@@ -18,6 +18,7 @@
 package game.field.life.npc;
 
 import game.field.MovePath;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -28,19 +29,19 @@ import network.packet.OutPacket;
 public class NpcPool {
     
     public static OutPacket onNpcEnterField(Npc npc) {
-        OutPacket packet = new OutPacket(LoopbackPacket.NpcEnterField);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.NpcEnterField);
         npc.encodeInitData(packet);
         return packet;
     }
     
     public static OutPacket onNpcLeaveField(int id) {
-        OutPacket packet = new OutPacket(LoopbackPacket.NpcLeaveField);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.NpcLeaveField);
         packet.encodeInt(id);
         return packet;
     }
     
     public static OutPacket onNpcChangeController(Npc npc, boolean ctrl) {
-        OutPacket packet = new OutPacket(LoopbackPacket.NpcChangeController);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.NpcChangeController);
         packet.encodeBool(ctrl);
         if (ctrl) {
             npc.encodeInitData(packet);
@@ -51,7 +52,7 @@ public class NpcPool {
     }
     
     public static OutPacket onMove(int id, byte action, byte chatIdx, MovePath mp) {
-        OutPacket packet = new OutPacket(LoopbackPacket.NpcMove);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.NpcMove);
         packet.encodeInt(id);
         packet.encodeByte(action);
         packet.encodeByte(chatIdx);

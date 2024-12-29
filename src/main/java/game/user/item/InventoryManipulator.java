@@ -25,6 +25,7 @@ import game.user.skill.SkillInfo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 import util.Pointer;
@@ -70,7 +71,7 @@ public class InventoryManipulator {
         if (changeLog == null) {
             changeLog = Collections.EMPTY_LIST;
         }
-        OutPacket packet = new OutPacket(LoopbackPacket.InventoryOperation);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.InventoryOperation);
         packet.encodeByte(onExclResult);
         packet.encodeByte(changeLog.size());
         for (ChangeLog change : changeLog) {

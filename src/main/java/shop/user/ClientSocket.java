@@ -35,14 +35,18 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import network.SocketCodec;
 import network.SocketDecoder;
 import network.SocketEncoder;
+import network.encryption.ClientCyphers;
+import network.packet.ByteBufOutPacket;
 import network.packet.CenterPacket;
 import network.packet.ClientPacket;
 import network.packet.InPacket;
+import network.packet.InitializationVector;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
-import network.security.XORCrypter;
+import network.packet.Packet;
 import shop.ShopApp;
 import util.Logger;
 import util.Rand32;
@@ -68,14 +72,11 @@ public class ClientSocket extends SimpleChannelInboundHandler {
     private SocketDecoder decoder;
     private SocketEncoder encoder;
     private final Lock lockSend;
-    private XORCrypter cipher;
     private int migrateState;
     private int characterID;
     public boolean adminClient;
     private User user;
     private int localSocketSN;
-    private int seqSnd;
-    private int seqRcv;
     private final AtomicBoolean closePosted;
     private final AtomicBoolean updatePosted;
     private String addr;
@@ -102,20 +103,20 @@ public class ClientSocket extends SimpleChannelInboundHandler {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        encoder = new SocketEncoder(cipher);
-        decoder = new SocketDecoder(cipher);
+        final InitializationVector sendIv = InitializationVector.generateSend();
+        final InitializationVector recvIv = InitializationVector.generateReceive();
         channel.pipeline().addBefore("ClientSocket", "AliveAck", new IdleStateHandler(20, 15, 0));
-        channel.pipeline().addBefore("ClientSocket", "SocketEncoder", encoder);
-        channel.pipeline().addBefore("ClientSocket", "SocketDecoder", decoder);
-        OutPacket packet = new OutPacket(Integer.MAX_VALUE);
+        channel.pipeline().addBefore("ClientSocket", "SocketCodec", new SocketCodec(ClientCyphers.of(sendIv, recvIv)));
+        OutPacket packet = new ByteBufOutPacket();
         packet.encodeShort(14);
         packet.encodeShort(OrionConfig.CLIENT_VER);
-        packet.encodeString(OrionConfig.CLIENT_PATCH);
-        packet.encodeInt(cipher.getSeqRcv());
-        packet.encodeInt(cipher.getSeqSnd());
+        packet.encodeShort(OrionConfig.CLIENT_PATCH);
+        packet.encodeByte(49);
+        packet.encodeBytes(recvIv.getBytes());
+        packet.encodeBytes(sendIv.getBytes());
         packet.encodeByte(OrionConfig.GAME_LOCALE);
         acceptTime = System.currentTimeMillis();
-        channel.writeAndFlush(Unpooled.wrappedBuffer(packet.toArray()));
+        channel.writeAndFlush(Unpooled.wrappedBuffer(packet.getBytes()));
         super.channelActive(ctx);
     }
 
@@ -135,7 +136,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
             return;
         }
         InPacket packet = (InPacket) msg;
-        if (packet.getDataLen() < 1) {
+        if (packet.available() < 1) {
             return;
         }
         processPacket(packet);
@@ -196,12 +197,6 @@ public class ClientSocket extends SimpleChannelInboundHandler {
 
     public User getUser() {
         return user;
-    }
-
-    public void initSequence() {
-        this.seqRcv = Rand32.getInstance().random().intValue();
-        this.seqSnd = Rand32.getInstance().random().intValue();
-        this.cipher = new XORCrypter(this.seqSnd, this.seqRcv);
     }
 
     public void onClose() {
@@ -275,7 +270,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
     private void processPacket(InPacket packet) {
         final byte type = packet.decodeByte();
         if (OrionConfig.LOG_PACKETS) {
-            Logger.logReport("[Packet Logger] [0x" + Integer.toHexString(type).toUpperCase() + "]: " + packet.dumpString());
+            Logger.logReport("[Packet Logger] [0x" + Integer.toHexString(type).toUpperCase() + "]: " + packet);
         }
         Logger.logReport("Recieved " + "[0x" + Integer.toHexString(type).toUpperCase() + "]");
         switch (type) {
@@ -323,36 +318,25 @@ public class ClientSocket extends SimpleChannelInboundHandler {
         this.addr = addr;
     }
 
-    public void sendPacket(OutPacket packet, boolean force) {
-        if (packet.getOffset() >= 0x32000) {
-            Logger.logError("SendPacket size is more than 200KB. Dump: %s IP: %s", packet.dumpString(), getSocketRemoteIP());
-            return;
-        }
+    public void sendPacket(Packet packet, boolean force) {
         lockSend.lock();
         try {
             if (!this.closePosted.get() || force) {
-                List<byte[]> buff = new LinkedList<>();
-                packet.makeBufferList(buff, OrionConfig.CLIENT_VER, cipher);
-                encoder.getCipher().updateSeqSnd();
-                sendPacket(buff);
-                buff.clear();
+                sendPacket(packet);
             }
         } finally {
             lockSend.unlock();
         }
     }
 
-    private void sendPacket(List<byte[]> buff) {
+    private void sendPacket(Packet packet) {
         lockSend.lock();
         try {
-            if (channel == null || buff == null || buff.isEmpty()) {
+            if (channel == null || packet == null) {
                 throw new RuntimeException("fuck everything");
             }
-            Iterator<byte[]> t = buff.iterator();
-            while (t.hasNext()) {
-                channel.write(t.next());
-            }
-            channel.flush();
+
+            channel.writeAndFlush(packet);
         } finally {
             lockSend.unlock();
         }
@@ -368,7 +352,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
         if (this.migrateState == MigrateState.Identified) {
             this.migrateState = MigrateState.WaitCenterMigrateOutResult;
             
-            OutPacket packet = new OutPacket(CenterPacket.GameMigrateReq);
+            OutPacket packet = new ByteBufOutPacket(CenterPacket.GameMigrateReq);
             packet.encodeInt(getCharacterID());
             
             ShopApp.getInstance().getCenter().sendPacket(packet);
@@ -385,7 +369,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
      * @return The server migration packet.
      */
     public static OutPacket onMigrateCommand(boolean isGuestAccount, int ip, int port) {
-        OutPacket packet = new OutPacket(LoopbackPacket.MigrateCommand);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.MigrateCommand);
         packet.encodeBool(!isGuestAccount);
         if (!isGuestAccount) {
             packet.encodeInt(ip);
@@ -401,7 +385,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
      * @return
      */
     public static OutPacket onAliveReq(int time) {
-        OutPacket packet = new OutPacket(LoopbackPacket.AliveReq);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.AliveReq);
         packet.encodeInt(time);
         return packet;
     }

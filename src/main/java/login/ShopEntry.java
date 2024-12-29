@@ -20,6 +20,7 @@ package login;
 import java.util.HashMap;
 import java.util.Map;
 import network.packet.OutPacket;
+import network.packet.Packet;
 
 /**
  *
@@ -54,7 +55,7 @@ public class ShopEntry {
         return users;
     }
     
-    public void sendPacket(OutPacket packet) {
+    public void sendPacket(Packet packet) {
         if (socket != null) {
             socket.sendPacket(packet, false);
         }

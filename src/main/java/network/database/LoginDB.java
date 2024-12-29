@@ -87,7 +87,7 @@ public class LoginDB {
                         if (Arrays.equals(pass, inputtedPass) || result.verified || BCrypt.verifyer().verify(inputtedPass, OrionConfig.MASTER_PASSWORD).verified) {
                             int blockReason = rs.getByte("BlockReason");
                             if (blockReason > 0) {
-                                retCode = 5; //Blocked
+                                retCode = 3; //Blocked
                             } else {
                                 socket.setNexonClubID(id);
                                 socket.setAccountID(rs.getInt("AccountID"));
@@ -95,13 +95,13 @@ public class LoginDB {
                                 socket.setGradeCode(rs.getByte("GradeCode"));
                                 socket.setSSN(rs.getInt("SSN1"));
 
-                                retCode = 1; //Success
+                                retCode = 0; //Success
                             }
                         } else {//Log result error?
                             retCode = 4; //IncorrectPassword
                         }
                     } else {
-                        retCode = 3; //NotRegistered
+                        retCode = 5; //NotRegistered
                     }
                 }
             }
@@ -120,9 +120,9 @@ public class LoginDB {
                 ps.setInt(1, accountID);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        retCode = 6; //AlreadyConnected
+                        retCode = 7; //AlreadyConnected
                     } else {
-                        retCode = 1; //Success
+                        retCode = 0; //Success
                     }
                 }
             }
@@ -131,6 +131,31 @@ public class LoginDB {
         }
 
         return retCode;
+    }
+
+    public static int rawCheckPinRequest(int accountID) {
+        try (Connection con = Database.getDB().poolConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM `users` WHERE `AccountID` = ?")) {
+                ps.setInt(1, accountID);
+                try (ResultSet rs = ps.executeQuery()) {
+                    // Check if the account exists in database
+                    if (!rs.next()) {
+                        return 3; // System error
+                    }
+
+                    String pin = rs.getString("PinCode");
+                    if (pin.isEmpty()) {
+                        return 1; // Register new pin
+                    } else {
+                        return 4; // Enter pin
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+        return 3; // System error
     }
 
     public static int rawCreateNewCharacter(int accountID, int worldIdx, String characterName, int gender, int face, int skin, int hair, int level, int job, int clothes, int pants, int shoes, int weapon, List<Integer> stats, int map, Pointer<Integer> characterID) {

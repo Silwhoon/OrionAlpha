@@ -18,6 +18,7 @@
 package game.user;
 
 import common.user.UserEffect;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -37,7 +38,7 @@ public class UserLocal {
      * @return The local user effect packet
      */
     public static OutPacket onEffect(byte userEffect, int... args) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserEffectLocal);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserEffectLocal);
         packet.encodeByte(userEffect);
         switch (userEffect) {
             case UserEffect.LevelUp:

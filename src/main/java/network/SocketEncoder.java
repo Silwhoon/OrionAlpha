@@ -20,30 +20,34 @@ package network;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import java.util.Arrays;
-import network.security.XORCrypter;
+import network.encryption.MapleAESOFB;
+import network.encryption.MapleCustomEncryption;
+import network.packet.Packet;
 
 /**
- * The server-end networking encoder. 
- * Sends the incoming socket buffer list to the remote socket.
- * 
+ * The server-end networking encoder. Sends the incoming socket buffer list to the remote socket.
+ *
  * @author Eric
  */
-public class SocketEncoder extends MessageToByteEncoder<byte[]> {
-    private final XORCrypter cipher;
-    
-    public SocketEncoder(XORCrypter cipher) {
-        this.cipher = cipher;
-    }
-    
-    @Override
-    protected void encode(ChannelHandlerContext ctx, byte[] message, ByteBuf out) throws Exception {
-        byte[] oPacket = (byte[]) message;
-        
-        out.writeBytes(Arrays.copyOf(oPacket, oPacket.length));
-    }
-    
-    public final XORCrypter getCipher() {
-        return cipher;
-    }
+public class SocketEncoder extends MessageToByteEncoder<Packet> {
+
+  private final MapleAESOFB sendCypher;
+
+  public SocketEncoder(MapleAESOFB sendCypher) {
+    this.sendCypher = sendCypher;
+  }
+
+  @Override
+  protected void encode(ChannelHandlerContext ctx, Packet in, ByteBuf out) {
+    byte[] packet = in.getBytes();
+    out.writeBytes(getEncodedHeader(packet.length));
+
+    MapleCustomEncryption.encryptData(packet);
+    sendCypher.crypt(packet);
+    out.writeBytes(packet);
+  }
+
+  private byte[] getEncodedHeader(int length) {
+    return sendCypher.getPacketHeader(length);
+  }
 }

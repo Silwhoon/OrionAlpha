@@ -18,6 +18,7 @@
 package shop.field;
 
 import common.user.DBChar;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 import shop.user.User;
@@ -29,7 +30,7 @@ import shop.user.User;
 public class Stage {
 
     public static OutPacket onSetCashShop(User user) {
-        OutPacket packet = new OutPacket(LoopbackPacket.SetCashShop);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.SetCashShop);
         packet.encodeInt(user.getKSSN());
         user.getCharacter().encode(packet, DBChar.All);
         return packet;

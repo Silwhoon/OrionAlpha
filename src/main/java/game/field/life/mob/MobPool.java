@@ -18,6 +18,7 @@
 package game.field.life.mob;
 
 import game.field.MovePath;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -28,20 +29,20 @@ import network.packet.OutPacket;
 public class MobPool {
     
     public static OutPacket onMobEnterField(Mob mob) {
-        OutPacket packet = new OutPacket(LoopbackPacket.MobEnterField);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.MobEnterField);
         mob.encodeInitData(packet);
         return packet;
     }
     
     public static OutPacket onMobLeaveField(int mobID, byte deadType) {
-        OutPacket packet = new OutPacket(LoopbackPacket.MobLeaveField);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.MobLeaveField);
         packet.encodeInt(mobID);
         packet.encodeByte(deadType);
         return packet;
     }
     
     public static OutPacket onStatSet(Mob mob, int flagSet, int skillID, short delay) {
-        OutPacket packet = new OutPacket(LoopbackPacket.MobStatSet);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.MobStatSet);
         packet.encodeInt(mob.getGameObjectID());
         mob.getMobStat().encodeTemporary(packet, flagSet);
         packet.encodeInt(skillID);
@@ -52,7 +53,7 @@ public class MobPool {
     }
     
     public static OutPacket onCtrlAck(int mobID, short mobCtrlSN, boolean nextAttackPossible, int mp) {
-        OutPacket packet = new OutPacket(LoopbackPacket.MobCtrlAck);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.MobCtrlAck);
         packet.encodeInt(mobID);
         packet.encodeShort(mobCtrlSN);
         packet.encodeBool(nextAttackPossible);
@@ -61,7 +62,7 @@ public class MobPool {
     }
     
     public static OutPacket onMobChangeController(Mob mob, int mobID, byte level) {
-        OutPacket packet = new OutPacket(LoopbackPacket.MobChangeController);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.MobChangeController);
         packet.encodeByte(level);
         if (level != 0) {
             mob.encodeInitData(packet);
@@ -72,7 +73,7 @@ public class MobPool {
     }
     
     public static OutPacket onMove(int mobID, boolean nextAttackPossible, byte left, int skillID, MovePath mp) {
-        OutPacket packet = new OutPacket(LoopbackPacket.MobMove);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.MobMove);
         packet.encodeInt(mobID);
         packet.encodeBool(nextAttackPossible);
         packet.encodeByte(left);

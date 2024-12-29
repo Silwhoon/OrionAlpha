@@ -18,6 +18,7 @@
 package game.field;
 
 import common.WhisperFlags;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -38,7 +39,7 @@ public class FieldPacket {
      * @return The ignore field request packet
      */
     public static OutPacket onTransferFieldReqIgnored() {
-        OutPacket packet = new OutPacket(LoopbackPacket.TransferFieldReqIgnored);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.TransferFieldReqIgnored);
         return packet;
     }
     
@@ -50,7 +51,7 @@ public class FieldPacket {
      * @return The admin result packet
      */
     public static OutPacket onAdminResult(int result) {
-        OutPacket packet = new OutPacket(LoopbackPacket.AdminResult);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.AdminResult);
         // if < 0: "The blocking failed"
         // if >= 0: "You have successfully blocked access"
         packet.encodeByte(result);
@@ -66,7 +67,7 @@ public class FieldPacket {
      * @return The weather packet
      */
     public static OutPacket onBlowWeather(int weatherItemID, String weatherMsg) {
-        OutPacket packet = new OutPacket(LoopbackPacket.BlowWeather);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.BlowWeather);
         packet.encodeInt(weatherItemID);
         if (weatherItemID != 0) {//0 = DestroyWeather
             packet.encodeString(weatherMsg);
@@ -88,7 +89,7 @@ public class FieldPacket {
      * @return The message/megaphone packet
      */
     public static OutPacket onGroupMessage(String characterName, String message) {
-        OutPacket packet = new OutPacket(LoopbackPacket.GroupMessage);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.GroupMessage);
         packet.encodeString(characterName);
         packet.encodeString(message);
         return packet;
@@ -109,7 +110,7 @@ public class FieldPacket {
      * @return A whisper and/or find packet.
      */
     public static OutPacket onWhisper(byte flag, String find, String receiver, String msg, int location, boolean success) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Whisper);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Whisper);
         packet.encodeByte(flag);
         switch (flag) {
             case WhisperFlags.ReplyReceive:

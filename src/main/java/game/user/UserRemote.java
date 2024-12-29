@@ -22,6 +22,7 @@ import game.field.MovePath;
 import game.field.life.AttackIndex;
 import game.user.stat.SecondaryStat;
 import java.awt.Point;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -42,7 +43,7 @@ public class UserRemote {
      * @return The remote user effect packet
      */
     public static OutPacket onEffect(int characterID, int userEffect, int... args) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserEffectRemote);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserEffectRemote);
         packet.encodeInt(characterID);
         packet.encodeByte(userEffect);
         switch (userEffect) {
@@ -71,7 +72,7 @@ public class UserRemote {
      * @return The character buff packet
      */
     public static OutPacket onTemporaryStatSet(int characterID, SecondaryStat ss, int flag) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserTemporaryStatSet);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserTemporaryStatSet);
         packet.encodeInt(characterID);
         ss.encodeForRemote(packet, flag);
         return packet;
@@ -87,7 +88,7 @@ public class UserRemote {
      * @return The buff reset packet
      */
     public static OutPacket onResetTemporaryStat(int characterID, int flag) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserTemporaryStatReset);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserTemporaryStatReset);
         packet.encodeInt(characterID);
         packet.encodeInt(flag);
         return packet;
@@ -103,7 +104,7 @@ public class UserRemote {
      * @return The emotion packet
      */
     public static OutPacket onEmotion(int characterID, int emotion) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserEmotion);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserEmotion);
         packet.encodeInt(characterID);
         packet.encodeInt(emotion);
         return packet;
@@ -112,7 +113,7 @@ public class UserRemote {
     // This is handled directly in LifePool. 
     // @see game.field.life.LifePool.onUserAttack.
     public static OutPacket onAttack(int characterID) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserMeleeAttack);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserMeleeAttack);
         packet.encodeInt(characterID);
         return packet;
     }
@@ -127,7 +128,7 @@ public class UserRemote {
      * @return The movement packet
      */
     public static OutPacket onMove(int characterID, MovePath mp) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserMove);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserMove);
         packet.encodeInt(characterID);
         mp.encode(packet);
         return packet;
@@ -150,7 +151,7 @@ public class UserRemote {
      * @return The user hit packet
      */
     public static OutPacket onHit(int characterID, byte mobAttackIdx, int clientDamage, int mobTemplateID, byte left, byte reflect, int mobID, byte hitAction, Point hit) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserHit);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserHit);
         packet.encodeInt(characterID);
         packet.encodeByte(mobAttackIdx);
         packet.encodeInt(clientDamage);
@@ -178,7 +179,7 @@ public class UserRemote {
      * @return The avatar modification packet
      */
     public static OutPacket onAvatarModified(User user, int avatarModFlag) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserAvatarModified);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserAvatarModified);
         packet.encodeInt(user.getCharacterID());
         packet.encodeInt(avatarModFlag);
         if ((avatarModFlag & AvatarLook.Face) != 0) {

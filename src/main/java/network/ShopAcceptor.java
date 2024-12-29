@@ -103,7 +103,6 @@ public class ShopAcceptor {
                             }
                             ClientSocket socket = new ClientSocket(ch);
                             socket.setAddr(String.format("%s:%d", socket.getSocketRemoteIP(), addr.getPort()));
-                            socket.initSequence();
                             int serialNo = serialNoCounter.incrementAndGet();
                             socket.setLocalSocketSN(serialNo);
                             sn2pSocket.put(serialNo, socket);

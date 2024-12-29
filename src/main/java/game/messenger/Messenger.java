@@ -20,6 +20,7 @@ package game.messenger;
 import game.user.AvatarLook;
 import game.user.User;
 import java.util.List;
+import network.packet.ByteBufOutPacket;
 import network.packet.InPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
@@ -95,7 +96,7 @@ public class Messenger {
         } else if (type == MessengerPacket.Blocked) {
             String inviteUser = packet.decodeString();
             String blockedUser = packet.decodeString();
-            boolean blockedDeny = packet.decodeBool();
+            boolean blockedDeny = packet.decodeBoolean();
             
             User target = user.getChannel().findUserByName(inviteUser, true);
             if (target != null) {
@@ -126,7 +127,7 @@ public class Messenger {
     }
 
     public static OutPacket onEnter(byte idx, byte gender, int face, AvatarLook avatarLook, String characterName, boolean isNew) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Messenger);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Messenger);
         packet.encodeByte(MessengerPacket.Enter);
         packet.encodeByte(idx);
         packet.encodeByte(gender);
@@ -138,7 +139,7 @@ public class Messenger {
     }
 
     public static OutPacket onInvite(String inviter, int sn) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Messenger);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Messenger);
         packet.encodeByte(MessengerPacket.Invite);
         packet.encodeString(inviter);
         packet.encodeInt(sn);
@@ -146,7 +147,7 @@ public class Messenger {
     }
 
     public static OutPacket onInviteResult(String targetName, boolean blockDeny) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Messenger);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Messenger);
         packet.encodeByte(MessengerPacket.InviteResult);
         packet.encodeString(targetName);
         packet.encodeBool(blockDeny);
@@ -154,7 +155,7 @@ public class Messenger {
     }
 
     public static OutPacket onBlocked(String blockedUser, boolean blockDeny) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Messenger);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Messenger);
         packet.encodeByte(MessengerPacket.Blocked);
         packet.encodeString(blockedUser);
         packet.encodeBool(blockDeny); // true: block, false: deny
@@ -162,14 +163,14 @@ public class Messenger {
     }
 
     public static OutPacket onChat(String text) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Messenger);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Messenger);
         packet.encodeByte(MessengerPacket.Chat);
         packet.encodeString(text);
         return packet;
     }
 
     public static OutPacket onAvatar(byte idx, byte gender, int face, AvatarLook avatarLook) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Messenger);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Messenger);
         packet.encodeByte(MessengerPacket.Avatar);
         packet.encodeByte(idx);
         packet.encodeByte(gender);
@@ -179,21 +180,21 @@ public class Messenger {
     }
 
     public static OutPacket onSelfEnterResult(byte idx) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Messenger);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Messenger);
         packet.encodeByte(MessengerPacket.SelfEnterResult);
         packet.encodeByte(idx);
         return packet;
     }
 
     public static OutPacket onLeave(byte idx) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Messenger);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Messenger);
         packet.encodeByte(MessengerPacket.Leave);
         packet.encodeByte(idx);
         return packet;
     }
 
     public static OutPacket onMigrated(List<Integer> flags, List<User> users) {
-        OutPacket packet = new OutPacket(LoopbackPacket.Messenger);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.Messenger);
         packet.encodeByte(MessengerPacket.Migrated);
         for (int i = 0; i < 3; i++) {
             packet.encodeByte(flags.get(i));

@@ -18,6 +18,7 @@
 package game.field.life.npc;
 
 import game.user.User;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -28,13 +29,13 @@ import network.packet.OutPacket;
 public class ShopDlg {
     
     public static OutPacket onOpenShopDlg(User user, NpcTemplate npcTemplate) {
-        OutPacket packet = new OutPacket(LoopbackPacket.OpenShopDlg);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.OpenShopDlg);
         npcTemplate.encodeShop(user, packet);
         return packet;
     }
     
     public static OutPacket onShopResult(int resCode) {
-        OutPacket packet = new OutPacket(LoopbackPacket.ShopResult);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.ShopResult);
         packet.encodeByte(resCode);
         return packet;
     }

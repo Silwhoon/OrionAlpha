@@ -140,4 +140,8 @@ public class Rand32 {
         
         return Float.intBitsToFloat(uBits) - 1.0f;
     }
+
+    public static byte randomByte() {
+        return (byte) (Math.random() * 255);
+    }
 }

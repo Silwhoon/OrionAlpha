@@ -26,9 +26,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import network.CenterAcceptor.CenterDecoder;
 import network.CenterAcceptor.CenterEncoder;
+import network.packet.ByteBufOutPacket;
 import network.packet.CenterPacket;
 import network.packet.InPacket;
 import network.packet.OutPacket;
+import network.packet.Packet;
 import util.Logger;
 
 /**
@@ -73,7 +75,7 @@ public class GameSocket extends SimpleChannelInboundHandler {
             return;
         }
         InPacket packet = (InPacket) msg;
-        if (packet.getDataLen() < 1) {
+        if (packet.available() < 1) {
             return;
         }
         processPacket(packet);
@@ -123,7 +125,7 @@ public class GameSocket extends SimpleChannelInboundHandler {
     public void onGameMigrateRequest(int characterID) {
         ShopEntry shop = LoginApp.getInstance().getShop();
         
-        OutPacket packet = new OutPacket(CenterPacket.GameMigrateRes);
+        OutPacket packet = new ByteBufOutPacket(CenterPacket.GameMigrateRes);
         packet.encodeInt(characterID);
         if (shop != null) {
             if (shop.getUsers().containsKey(characterID)) {
@@ -150,7 +152,7 @@ public class GameSocket extends SimpleChannelInboundHandler {
     public void onShopMigrateRequest(int characterID, byte worldID, byte channelID) {
         ShopEntry shop = LoginApp.getInstance().getShop();
             
-        OutPacket packet = new OutPacket(CenterPacket.ShopMigrateRes);
+        OutPacket packet = new ByteBufOutPacket(CenterPacket.ShopMigrateRes);
         packet.encodeInt(characterID);
         if (shop != null) {
             shop.getUsers().put(characterID, LoginApp.getInstance().getWorld(worldID).getChannel(channelID));
@@ -191,16 +193,16 @@ public class GameSocket extends SimpleChannelInboundHandler {
                 onGameMigrateRequest(packet.decodeInt());
                 break;
             default: {
-                Logger.logReport("Unidentified Center Packet [%d] : %s", type, packet.dumpString());
+                Logger.logReport("Unidentified Center Packet [%d] : %s", type, packet.toString());
             }
         }
     }
     
-    public void sendPacket(OutPacket packet, boolean force) {
+    public void sendPacket(Packet packet, boolean force) {
         lockSend.lock();
         try {
             if (!closePosted || force) {
-                channel.writeAndFlush(packet.toArray());
+                channel.writeAndFlush(packet.getBytes());
             }
         } finally {
             lockSend.unlock();

@@ -149,7 +149,6 @@ public class LoginAcceptor {
             return;
         }
         ClientSocket socket = new ClientSocket(ch);
-        socket.initSequence();//rand() | (rand() << 16)
 	    int serialNo = this.serialNoCounter.incrementAndGet();
 	    socket.setLocalSocketSN(serialNo);
 	    this.sn2pSocket.put(serialNo, socket);

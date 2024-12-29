@@ -17,6 +17,7 @@
  */
 package game.user;
 
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -35,7 +36,7 @@ public class UserCommon {
      * @return The chat packet
      */
     public static OutPacket onChat(int characterID, String text) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserChat);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserChat);
         packet.encodeInt(characterID);
         packet.encodeString(text);
         return packet;

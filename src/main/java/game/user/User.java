@@ -53,10 +53,12 @@ import game.user.stat.CharacterTemporaryStat;
 import game.user.stat.SecondaryStat;
 import network.database.CommonDB;
 import network.database.GameDB;
+import network.packet.ByteBufOutPacket;
 import network.packet.CenterPacket;
 import network.packet.ClientPacket;
 import network.packet.InPacket;
 import network.packet.OutPacket;
+import network.packet.Packet;
 import util.Logger;
 import util.Pointer;
 import util.Rand32;
@@ -1195,7 +1197,7 @@ public class User extends Creature {
                 if (type >= ClientPacket.BEGIN_FIELD && type <= ClientPacket.END_FIELD) {
                     onFieldPacket(type, packet);
                 } else {
-                    Logger.logReport("[Unidentified Packet] [0x" + Integer.toHexString(type).toUpperCase() + "]: " + packet.dumpString());
+                    Logger.logReport("[Unidentified Packet] [0x" + Integer.toHexString(type).toUpperCase() + "]: " + packet.toString());
                 }
             }
         }
@@ -1668,7 +1670,7 @@ public class User extends Creature {
             if (character.getCharacterStat().getLevel() < 15) {
                 sendPacket(WvsContext.onGivePopularityResult(GivePopularityRes.LevelLow, null, false));
             } else {
-                boolean incFame = packet.decodeBool();
+                boolean incFame = packet.decodeBoolean();
 
                 byte ret = GameDB.rawCheckGivePopularity(characterID, targetID);
                 if (ret == GivePopularityRes.Success) {
@@ -1808,7 +1810,7 @@ public class User extends Creature {
                 if (canAttachAdditionalProcess()) {
                     this.onTransferField = true;
 
-                    OutPacket packet = new OutPacket(CenterPacket.ShopMigrateReq);
+                    OutPacket packet = new ByteBufOutPacket(CenterPacket.ShopMigrateReq);
                     packet.encodeInt(getCharacterID());
                     packet.encodeByte(getWorldID());
                     packet.encodeByte(getChannelID());
@@ -2417,7 +2419,7 @@ public class User extends Creature {
         }
     }
 
-    public void sendPacket(OutPacket packet) {
+    public void sendPacket(Packet packet) {
         lockSocket.lock();
         try {
             if (socket != null) {

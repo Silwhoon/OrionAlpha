@@ -41,6 +41,7 @@ import network.database.ShopDB;
 import network.packet.ClientPacket;
 import network.packet.InPacket;
 import network.packet.OutPacket;
+import network.packet.Packet;
 import shop.Commodity;
 import shop.ShopApp;
 import shop.ShopPacket;
@@ -582,7 +583,7 @@ public class User {
     }
 
     public void onPacket(byte type, InPacket packet) {
-        Logger.logReport("[Packet Logger] [0x" + Integer.toHexString(type).toUpperCase() + "]: " + packet.dumpString());
+        Logger.logReport("[Packet Logger] [0x" + Integer.toHexString(type).toUpperCase() + "]: " + packet.toString());
         switch (type) {
             case ClientPacket.UserTransferFieldRequest:
                 onTransferFieldRequest();
@@ -621,7 +622,7 @@ public class User {
         socket.onFilterMigrateOut();
     }
 
-    public void sendPacket(OutPacket packet) {
+    public void sendPacket(Packet packet) {
         lockSocket.lock();
         try {
             if (socket != null) {

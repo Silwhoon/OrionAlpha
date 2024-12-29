@@ -24,9 +24,9 @@ package common;
  */
 public class OrionConfig {
     // Version Info
-    public static final int CLIENT_VER = 223;
-    public static final String CLIENT_PATCH = "\0";
-    public static final int GAME_LOCALE = 1; //KR
+    public static final int CLIENT_VER = 55;
+    public static final int CLIENT_PATCH = 1;
+    public static final int GAME_LOCALE = 8;
 
     // Maximum Active Network Sessions
     public static final int MAX_CONNECTIONS = 1000;
@@ -35,5 +35,5 @@ public class OrionConfig {
     public static final char[] MASTER_PASSWORD = "$2a$10$SdXGImegkpvdeHohjas29.ZBR7LwmvpXxNBy..chrmXiMFqyntJZm".toCharArray();
 
     // Log Packets
-    public static final boolean LOG_PACKETS = false;
+    public static final boolean LOG_PACKETS = true;
 }

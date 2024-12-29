@@ -18,6 +18,7 @@
 package game.user;
 
 import game.user.stat.SecondaryStat;
+import network.packet.ByteBufOutPacket;
 import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 
@@ -35,7 +36,7 @@ public class UserPool {
      * @return The enter field packet
      */
     public static OutPacket onUserEnterField(User user) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserEnterField);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserEnterField);
         packet.encodeInt(user.getCharacterID());
         
         packet.encodeString(user.getCharacterName());
@@ -65,7 +66,7 @@ public class UserPool {
      * @return The leave field packet
      */
     public static OutPacket onUserLeaveField(int characterID) {
-        OutPacket packet = new OutPacket(LoopbackPacket.UserLeaveField);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.UserLeaveField);
         packet.encodeInt(characterID);
         return packet;
     }

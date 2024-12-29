@@ -20,6 +20,7 @@ package login;
 import java.util.ArrayList;
 import java.util.List;
 import network.packet.OutPacket;
+import network.packet.Packet;
 
 /**
  *
@@ -66,7 +67,7 @@ public class WorldEntry {
         channels.remove(ch);
     }
     
-    public void sendPacket(OutPacket packet) {
+    public void sendPacket(Packet packet) {
         if (socket != null) {
             socket.sendPacket(packet, false);
         }

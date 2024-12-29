@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import network.packet.ByteBufOutPacket;
 import network.packet.ClientPacket;
 import network.packet.InPacket;
 import network.packet.LoopbackPacket;
@@ -170,7 +171,7 @@ public class DropPool {
     }
     
     public static OutPacket onDropEnterField(Drop drop, int enterType, int delay) {
-        OutPacket packet = new OutPacket(LoopbackPacket.DropEnterField);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.DropEnterField);
         packet.encodeByte(enterType);
         packet.encodeInt(drop.getDropID());
         packet.encodeBool(drop.isMoney());
@@ -187,7 +188,7 @@ public class DropPool {
     }
     
     public static OutPacket onDropLeaveField(int dropID, int leaveType, int option) {
-        OutPacket packet = new OutPacket(LoopbackPacket.DropLeaveField);
+        OutPacket packet = new ByteBufOutPacket(LoopbackPacket.DropLeaveField);
         packet.encodeByte(leaveType);
         packet.encodeInt(dropID);
         if (leaveType == Drop.PickedUpByUser) {

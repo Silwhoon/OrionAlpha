@@ -40,9 +40,12 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.json.JsonObject;
 import network.GameAcceptor;
+import network.packet.ByteBufInPacket;
+import network.packet.ByteBufOutPacket;
 import network.packet.CenterPacket;
 import network.packet.InPacket;
 import network.packet.OutPacket;
+import network.packet.Packet;
 import util.Logger;
 import util.Utilities;
 
@@ -94,7 +97,7 @@ public class CenterSocket extends SimpleChannelInboundHandler {
             return;
         }
         InPacket packet = (InPacket) msg;
-        if (packet.getDataLen() < 1) {
+        if (packet.available() < 1) {
             return;
         }
         processPacket(packet);
@@ -133,7 +136,7 @@ public class CenterSocket extends SimpleChannelInboundHandler {
                     .channel();
             
             // Send the Center Server the Login server information request
-            OutPacket packet = new OutPacket(CenterPacket.InitGameSvr);
+            OutPacket packet = new ByteBufOutPacket(CenterPacket.InitGameSvr);
             packet.encodeByte(GameApp.getInstance().getWorldID());
             packet.encodeString(getWorldName());
             encodeChannel(packet);
@@ -180,7 +183,7 @@ public class CenterSocket extends SimpleChannelInboundHandler {
         
         User user = GameApp.getInstance().getChannel(getChannelID()).findUser(characterID);
         if (user != null) {
-            if (packet.decodeBool()) {
+            if (packet.decodeBoolean()) {
                 user.sendPacket(ClientSocket.onMigrateCommand(false, Utilities.netIPToInt32(packet.decodeString()), packet.decodeShort()));
             } else {
                 user.sendSystemMessage("The Cash Shop is unavailable.");
@@ -210,17 +213,17 @@ public class CenterSocket extends SimpleChannelInboundHandler {
                     onShopMigrateResult(packet);
                     break;
                 default: {
-                    Logger.logReport("Packet received: %s", packet.dumpString());
+                    Logger.logReport("Packet received: %s", packet);
                 }
             }
         }
     }
     
-    public void sendPacket(OutPacket packet) {
+    public void sendPacket(Packet packet) {
         if (channel != null && channel.isActive()) {
             lockSend.lock();
             try {
-                channel.writeAndFlush(packet.toArray());
+                channel.writeAndFlush(packet.getBytes());
             } finally {
                 lockSend.unlock();
             }
@@ -236,9 +239,7 @@ public class CenterSocket extends SimpleChannelInboundHandler {
             byte[] src = new byte[length];
             in.readBytes(src);
             
-            InPacket packet = new InPacket();
-            packet.setDataLen(length);
-            packet.rawAppendBuffer(Unpooled.wrappedBuffer(src), length);
+            InPacket packet = new ByteBufInPacket(Unpooled.wrappedBuffer(src));
             out.add(packet);
         }
     }

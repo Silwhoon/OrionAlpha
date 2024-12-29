@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import network.packet.ByteBufOutPacket;
 import network.packet.ClientPacket;
 import network.packet.InPacket;
 import network.packet.OutPacket;
@@ -769,7 +770,7 @@ public class LifePool {
                     }
                 }
             
-                OutPacket packet = new OutPacket(type);
+                OutPacket packet = new ByteBufOutPacket(type);
                 packet.encodeInt(user.getCharacterID());
                 packet.encodeByte(damagePerMob | 16 * mobCount);
                 packet.encodeByte(slv);
