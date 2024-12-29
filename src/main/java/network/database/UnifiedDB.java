@@ -76,7 +76,7 @@ public class UnifiedDB {
             HikariConfig config = new HikariConfig();
             // DB Config
             // While it is preferred to use a DataSourceClassName, HikariCP optionally allows the JdbcURL option. :)
-            config.setJdbcUrl(String.format("jdbc:%s://%s:%d/%s", Driver_MariaDB, serverName, port, dbName));
+            config.setJdbcUrl(String.format("jdbc:%s://%s:%d/%s", Driver_MySQL, serverName, port, dbName));
             
             config.setUsername(user);
             config.setPassword(password);
