@@ -69,8 +69,6 @@ public class ClientSocket extends SimpleChannelInboundHandler {
     }
 
     private final Channel channel;
-    private SocketDecoder decoder;
-    private SocketEncoder encoder;
     private final Lock lockSend;
     private int migrateState;
     private int characterID;

@@ -22,7 +22,7 @@ package network.packet;
  * @author Eric
  */
 public class CenterPacket {
-    public static final byte
+    public static final short
             BEGIN_SOCKET    = 0,
             InitGameSvr     = 1,
             InitShopSvr     = 2,

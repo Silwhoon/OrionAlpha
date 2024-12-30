@@ -33,6 +33,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.xml.crypto.Data;
 import login.user.ClientSocket;
 import login.user.item.Inventory;
 import util.Pointer;
@@ -133,7 +134,7 @@ public class LoginDB {
         return retCode;
     }
 
-    public static int rawCheckPinRequest(int accountID) {
+    public static int rawGetPinRequest(int accountID) {
         try (Connection con = Database.getDB().poolConnection()) {
             try (PreparedStatement ps = con.prepareStatement("SELECT * FROM `users` WHERE `AccountID` = ?")) {
                 ps.setInt(1, accountID);
@@ -156,6 +157,45 @@ public class LoginDB {
         }
 
         return 3; // System error
+    }
+
+    public static int rawCheckPin(int accountID, String pin) {
+        try (Connection con = Database.getDB().poolConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM `users` WHERE `AccountID` = ?")) {
+                ps.setInt(1, accountID);
+                try (ResultSet rs = ps.executeQuery()) {
+                    // Check if the account exists in database
+                    if (!rs.next()) {
+                        return 3; // System error
+                    }
+
+                    String pinDB = rs.getString("PinCode");
+                    if (pinDB.isEmpty()) {
+                        return 1; // Register new pin
+                    } else if (pinDB.equals(pin)) {
+                        return 0; // Successful pin
+                    } else {
+                        return 2; // Invalid pin
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+        return 3; // System error
+    }
+
+    public static boolean rawChangePin(int accountID, String pin) {
+        try (Connection con = Database.getDB().poolConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE `users` SET `PinCode` = ? WHERE `AccountID` = ?")) {
+                return (Database.execute(con, ps, pin, accountID) != -1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.err);
+        }
+
+        return false;
     }
 
     public static int rawCreateNewCharacter(int accountID, int worldIdx, String characterName, int gender, int face, int skin, int hair, int level, int job, int clothes, int pants, int shoes, int weapon, List<Integer> stats, int map, Pointer<Integer> characterID) {

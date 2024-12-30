@@ -177,7 +177,7 @@ public class GameSocket extends SimpleChannelInboundHandler {
     }
     
     public void processPacket(InPacket packet) {
-        final byte type = packet.decodeByte();
+        final short type = packet.decodeShort();
         
         switch (type) {
             case CenterPacket.InitGameSvr:

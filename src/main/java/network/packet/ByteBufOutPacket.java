@@ -74,9 +74,9 @@ public class ByteBufOutPacket implements OutPacket {
 
   @Override
   public void encodeString(String value) {
-    encodeShort((short) value.length());
-    // TODO: Allow different charsets
-    encodeBytes(value.getBytes(StandardCharsets.US_ASCII));
+    byte[] stringBytes = value.getBytes(StandardCharsets.US_ASCII);
+    encodeShort((short) stringBytes.length);
+    encodeBytes(stringBytes);
   }
 
   @Override

@@ -10,7 +10,7 @@ YELLOW='\033[0;33m'
 NC='\033[0m' # No color
 
 # Project-specific configurations
-PROJECT_DIR="$(dirname "$0")/.." # Adjusted to account for the "scripts" folder
+PROJECT_DIR="$(dirname "$0")/.." # Adjusted to account for the "script" folder
 LOG_DIR="$PROJECT_DIR/logs"
 JAR_FILE="$PROJECT_DIR/target/OrionAlpha.jar"
 
@@ -28,16 +28,15 @@ if ! command -v java &> /dev/null; then
     exit 1
 fi
 
+# Stop any running processes
 for pid_file in "$LOG_DIR"/*.pid; do
     if [ -f "$pid_file" ]; then
         pid=$(cat "$pid_file")
         echo -e "${YELLOW}[INFO] Stopping process with PID $pid...${NC}"
-        kill $pid
+        kill $pid || echo -e "${RED}[WARNING] Could not kill process $pid. It may not exist.${NC}"
         rm -f "$pid_file"
     fi
 done
-
-
 
 # Compile the project
 echo -e "${GREEN}[INFO] Compiling the project...${NC}"
@@ -56,13 +55,10 @@ run_app() {
     local extra_opts=$3
 
     echo -e "${GREEN}[INFO] Starting $app_name...${NC}"
-    java -Xmx${xmx_value} ${JAVA_COMMON_OPTS} ${extra_opts} -cp "$JAR_FILE" $app_name &
-    local pid=$!
-
-    echo $pid > "$LOG_DIR/${app_name}.pid"
-    echo -e "${GREEN}[INFO] $app_name started with PID $pid.${NC}"
+    java -Xmx${xmx_value} ${JAVA_COMMON_OPTS} ${extra_opts} -cp "$JAR_FILE" $app_name
 }
 
-run_app "login.LoginApp" "200m" ""
-#run_app "game.GameApp" "400m" "-DgameID=0"
+# Run the applications
+#run_app "login.LoginApp" "200m" ""
+run_app "game.GameApp" "400m" "-DgameID=0"
 #run_app "shop.ShopApp" "200m" ""

@@ -25,7 +25,13 @@ public class LoopbackPacket {
     public static final short
             BEGIN_SOCKET = 0,
             CheckPasswordResult = 0,
+            SendWorldList = 5,
             PinOperation = 13,
+            PinRegister = 17,
+            SendWorldStatus = 18,
+            END_SOCKET = 19,
+            BEGIN_CHARACTERDATA = 20,
+
 
             SelectWorldResult = 2,
             SelectCharacterResult = 3,
@@ -34,8 +40,6 @@ public class LoopbackPacket {
             DeleteCharacterResult = 6,
             MigrateCommand = 7,
             AliveReq = 8,
-            END_SOCKET = 9,
-            BEGIN_CHARACTERDATA = 10,
             InventoryOperation = 11,
             InventoryGrow = 12,
             // Both StatChanged and TemporaryStatSet are in one function in 1.23

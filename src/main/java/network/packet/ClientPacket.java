@@ -24,12 +24,19 @@ public class ClientPacket {
 
   public static final byte
       BEGIN_SOCKET = 0,
-      AfterLogin = 3,
+      PinAction = 3, // TODO: What is the GMS-like name for this
+      RegisterPin = 5,
+      HoverWorld = 19,
       SelectCharacter = 22,
+      SuccessfulPin = 24,
+      SelectWorld = 25,
       CheckPassword = 27,
-      SelectWorld = 2,
+      END_SOCKET = 28,
+      BEGIN_USER = 29,
+
+
       MigrateIn = 4,
-      CheckDuplicatedID = 5,
+      CheckDuplicatedID = 8,
       CreateNewCharacter = 6,
       DeleteCharacter = 7,
   // Both 0x8 and 0x9 are their own "AliveAck"..
@@ -37,8 +44,6 @@ public class ClientPacket {
   AliveAck = 8,
       AliveReq = 9, // 0058B285
       ExceptionLog = 10,
-      END_SOCKET = 28,
-      BEGIN_USER = 29,
       UserTransferFieldRequest = 13,
       UserMigrateToCashShopRequest = 14,
       UserMove = 15,

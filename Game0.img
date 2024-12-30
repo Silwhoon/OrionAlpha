@@ -2,7 +2,7 @@
 	"port": 8585,
 	
 	"gameWorldId": 0,
-	"channelNo": 2,
+	"channelNo": 4,
 	
 	"PublicIP": "127.0.0.1",
 	"PrivateIP": "127.0.0.1",
@@ -14,6 +14,6 @@
 	"login": {
 		"ip": "127.0.0.1",
 		"port": 8383,
-		"worldName": "OrionAlpha"
+		"worldName": "Scania"
 	}
 }

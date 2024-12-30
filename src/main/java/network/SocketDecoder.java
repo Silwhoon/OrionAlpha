@@ -26,12 +26,6 @@ public class SocketDecoder extends ReplayingDecoder<Void> {
     return (((header[1] ^ header[3]) & 0xFF) << 8) | ((header[0] ^ header[2]) & 0xFF);
   }
 
-  private static int decodePacketLength(int header) {
-    int length = ((header >>> 16) ^ (header & 0xFFFF));
-    length = ((length << 8) & 0xFF00) | ((length >>> 8) & 0xFF);
-    return length;
-  }
-
   @Override
   protected void decode(ChannelHandlerContext context, ByteBuf in, List<Object> out) {
     final int header = in.readInt();
@@ -40,7 +34,7 @@ public class SocketDecoder extends ReplayingDecoder<Void> {
       throw new InvalidPacketHeaderException("Attempted to decode a packet with an invalid header", header);
     }
 
-    final int packetLength = decodePacketLength(header);
+    final int packetLength = MapleAESOFB.getPacketLength(header);
     byte[] packet = new byte[packetLength];
     in.readBytes(packet);
     receiveCypher.crypt(packet);

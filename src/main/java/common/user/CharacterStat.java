@@ -60,10 +60,13 @@ public class CharacterStat {
         packet.encodeInt(characterID);
         packet.encodeString(name, 13);
         packet.encodeByte(gender);
+        packet.encodeByte(skin);
         packet.encodeInt(face);
         packet.encodeInt(hair);
-        packet.encodeByte(skin);
-        packet.encodeInt(0); //Unknown
+        // TODO: Pet unique IDs
+        packet.encodeLong(0);
+        packet.encodeLong(0);
+        packet.encodeLong(0);
         packet.encodeByte(level);
         packet.encodeShort(job);
         packet.encodeShort(STR);
@@ -78,7 +81,7 @@ public class CharacterStat {
         packet.encodeShort(sp);
         packet.encodeInt(exp.get());
         packet.encodeShort(pop);
-        packet.encodeInt(money.get());
+        //packet.encodeInt(money.get());
         packet.encodeInt(posMap);
         packet.encodeByte(portal);
     }

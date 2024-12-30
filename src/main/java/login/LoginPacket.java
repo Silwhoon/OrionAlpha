@@ -46,18 +46,6 @@ public class LoginPacket {
       packet.encodeBytes(
           new byte[]{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (byte) 0xDC, 0x3D, 0x0B, 0x28, 0x64,
               (byte) 0xC5, 1, 8, 0, 0, 0});
-
-      // KMS Alpha stuff
-//      packet.encodeByte(LoginApp.getInstance().getWorlds().size());
-//      for (WorldEntry world : LoginApp.getInstance().getWorlds()) {
-//        packet.encodeByte(world.getChannels().size());
-//        for (ChannelEntry channel : world.getChannels()) {
-//          packet.encodeString(world.getName() + "-" + (channel.getChannelID() + 1));
-//          packet.encodeInt(channel.getUserNo());
-//          packet.encodeByte(channel.getWorldID());
-//          packet.encodeByte(channel.getChannelID());
-//        }
-//      }
     }
     return packet;
   }
@@ -68,12 +56,52 @@ public class LoginPacket {
     return packet;
   }
 
+  public static OutPacket onRegisterPinResult(int result) {
+    OutPacket packet = new ByteBufOutPacket(LoopbackPacket.PinRegister);
+    packet.encodeByte(result);
+    return packet;
+  }
+
+  public static OutPacket onSendWorldList(WorldEntry world) {
+    OutPacket packet = new ByteBufOutPacket(LoopbackPacket.SendWorldList);
+    if (world == null) {
+      packet.encodeByte(0xFF);
+      return packet;
+    }
+
+    packet.encodeByte(world.getWorldID());
+    packet.encodeString(world.getName());
+    packet.encodeByte(0); // TODO: World flag
+    packet.encodeString(""); // TODO: World event message
+    packet.encodeByte(0x64); // TODO: EXP Rate
+    packet.encodeByte(0x0); // TODO: event xp * 2.6 (?)
+    packet.encodeByte(0x64); // TODO: Drop Rate
+    packet.encodeByte(0x0); // TODO: drop rate * 2.6 (?)
+    packet.encodeByte(0x0); // TODO: What is this?
+
+    int channelSize = world.getChannels().size();
+    packet.encodeByte(channelSize);
+
+    for (ChannelEntry channel : world.getChannels()) {
+      packet.encodeString(world.getName() + "-" + + (channel.getChannelID() + 1));
+      packet.encodeInt(channel.getUserNo());
+      packet.encodeByte(world.getWorldID());
+      packet.encodeShort(channel.getChannelID());
+    }
+
+    return packet;
+  }
+
+  public static OutPacket onSendWorldStatus(int status) {
+    OutPacket packet = new ByteBufOutPacket(LoopbackPacket.SendWorldStatus);
+    packet.encodeShort(status);
+    return packet;
+  }
+
   public static OutPacket onSelectWorldResult(int msg, int ssn, List<CharacterData> characters) {
     OutPacket packet = new ByteBufOutPacket(LoopbackPacket.SelectWorldResult);
     packet.encodeByte(msg);
     if (msg == 1) {
-      packet.encodeInt(ssn);
-
       packet.encodeByte(characters.size());
       for (CharacterData character : characters) {
         character.encode(packet, DBChar.Character | DBChar.ItemSlotEquip);

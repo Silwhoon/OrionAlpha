@@ -23,53 +23,69 @@ import network.packet.OutPacket;
 import network.packet.Packet;
 
 /**
- *
  * @author Eric
  */
 public class WorldEntry {
-    private final byte worldID;
-    private final String name;
-    private final List<ChannelEntry> channels;
-    private final GameSocket socket;
-    
-    public WorldEntry(GameSocket socket, byte worldID, String name) {
-        this.socket = socket;
-        this.worldID = worldID;
-        this.name = name;
-        this.channels = new ArrayList<>();
+
+  private final byte worldID;
+  private final String name;
+  private final List<ChannelEntry> channels;
+  private final GameSocket socket;
+
+  public WorldEntry(GameSocket socket, byte worldID, String name) {
+    this.socket = socket;
+    this.worldID = worldID;
+    this.name = name;
+    this.channels = new ArrayList<>();
+  }
+
+  public void addChannel(ChannelEntry ch) {
+    channels.add(ch);
+  }
+
+  public ChannelEntry getChannel(int channel) {
+    return channels.get(channel);
+  }
+
+  public final List<ChannelEntry> getChannels() {
+    return channels;
+  }
+
+  public final GameSocket getSocket() {
+    return socket;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public byte getWorldID() {
+    return worldID;
+  }
+
+  public void removeChannel(ChannelEntry ch) {
+    channels.remove(ch);
+  }
+
+  public int getPopulationStatus() {
+//    int worldPlayerCap = getChannels().size() * 800;
+//    int worldPlayerCount = getNumberOfOnlinePlayers();
+//
+//    if (worldPlayerCount >= worldPlayerCap) {
+//      return WorldStatus.FULL;
+//    } else if (worldPlayerCount >= (worldPlayerCap
+//        * 0.9)) { // TODO: Is there any way to find out the GMS-like value of this?
+//      return WorldStatus.HIGHLY_POPULATED;
+//    } else {
+//      return WorldStatus.NORMAL;
+//    }
+    // TODO:
+    return 0; // Normal
+  }
+
+  public void sendPacket(Packet packet) {
+    if (socket != null) {
+      socket.sendPacket(packet, false);
     }
-    
-    public void addChannel(ChannelEntry ch) {
-        channels.add(ch);
-    }
-    
-    public ChannelEntry getChannel(int channel) {
-        return channels.get(channel);
-    }
-    
-    public final List<ChannelEntry> getChannels() {
-        return channels;
-    }
-    
-    public final GameSocket getSocket() {
-        return socket;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public byte getWorldID() {
-        return worldID;
-    }
-    
-    public void removeChannel(ChannelEntry ch) {
-        channels.remove(ch);
-    }
-    
-    public void sendPacket(Packet packet) {
-        if (socket != null) {
-            socket.sendPacket(packet, false);
-        }
-    }
+  }
 }
