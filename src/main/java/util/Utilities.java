@@ -17,6 +17,9 @@
  */
 package util;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  *
  * @author Eric
@@ -75,6 +78,14 @@ public class Utilities {
             netaddr += Long.parseLong(ip[i]) << (i << 3);
         }
         return netaddr.intValue();
+    }
+
+    public static byte[] netIPToByteArray(String addr) {
+      try {
+        return InetAddress.getByName(addr).getAddress();
+      } catch (UnknownHostException e) {
+        throw new RuntimeException(e);
+      }
     }
 
     /**

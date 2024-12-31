@@ -18,28 +18,42 @@
 package common.item;
 
 /**
- *
  * @author Eric
  */
 public class BodyPart {
-    public static final int
-            BP_BEGIN    = 0,
-            Hair        = 0,
-            Cap         = 1,
-            FaceAcc     = 2,
-            EyeAcc      = 3,
-            EarAcc      = 4,
-            Clothes     = 5,
-            Pants       = 6,
-            Shoes       = 7,
-            Gloves      = 8,
-            Cape        = 9,
-            Shield      = 10,
-            Weapon      = 11,
-            Ring1       = 12,
-            Ring2       = 13,
-            PetWear     = 14,
-            BP_Count    = 14,
-            BP_END      = 15
-    ;
+
+  public static final int
+      BP_BEGIN = 0,
+      Hair = 0,
+      Cap = 1,
+      FaceAcc = 2,
+      EyeAcc = 3,
+      EarAcc = 4,
+      Clothes = 5,
+      Pants = 6,
+      Shoes = 7,
+      Gloves = 8,
+      Cape = 9,
+      Shield = 10,
+      Weapon = 11,
+      Ring1 = 12,
+      Ring2 = 13,
+      PetWear = 14,
+      Ring3 = 15,
+      Ring4 = 16,
+      Pendant = 17,
+      TamingMob = 18,
+      TamingMobSaddle = 19,
+      TamingMobWear = 20,
+      PetRing1 = 21,
+      PetItemPocket = 22,
+      PetMesoMagnet = 23,
+      PetHpPocket = 24,
+      PetMpPocket = 25,
+      PetPos = 26, // TODO: What is this for?
+      PetMoveUp = 27, // TODO: What is this for?
+      PetPickUp = 28,
+      PetRing2 = 29,
+      BP_Count = 29,
+      BP_END = 30;
 }

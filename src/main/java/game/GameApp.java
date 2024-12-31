@@ -233,7 +233,7 @@ public class GameApp {
         
         // Load Mobs
         time = System.currentTimeMillis();
-        MobTemplate.load(true);
+        MobTemplate.load(false);
         Logger.logReport("Loaded Mob Attributes in " + ((System.currentTimeMillis() - time) / 1000.0) + " seconds.");
         
         // Load Npcs

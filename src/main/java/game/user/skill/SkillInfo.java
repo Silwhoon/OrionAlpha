@@ -167,6 +167,11 @@ public class SkillInfo {
     }
 
     private void loadSkillRoot(WzProperty root) {
+        try {
+            Integer.parseInt(root.getNodeName().replace(".img", ""));
+        } catch (NumberFormatException e) {
+            return;
+        }
         int skillRootID = Integer.parseInt(root.getNodeName().replace(".img", ""));
         SkillRoot skillRoot = new SkillRoot();
         skillRoot.setSkillRootID(skillRootID);

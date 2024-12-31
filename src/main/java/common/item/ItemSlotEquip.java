@@ -103,6 +103,7 @@ public class ItemSlotEquip extends ItemSlotBase {
     
     @Override
     public void rawEncode(OutPacket packet) {
+        packet.encodeByte(ItemType.Equip);
         super.rawEncode(packet);
         packet.encodeByte(ruc);
         packet.encodeByte(cuc);
@@ -121,6 +122,9 @@ public class ItemSlotEquip extends ItemSlotBase {
         packet.encodeShort(iCraft);
         packet.encodeShort(iSpeed);
         packet.encodeShort(iJump);
+        packet.encodeString(""); // TODO: Item owner
+        packet.encodeShort(0); // TODO: Item lock
+        packet.encodeLong(0); // TODO: What is this?
     }
     
     @Override

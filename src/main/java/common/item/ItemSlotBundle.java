@@ -62,6 +62,13 @@ public class ItemSlotBundle extends ItemSlotBase {
     public void rawEncode(OutPacket packet) {
         super.rawEncode(packet);
         packet.encodeShort(number);
+        packet.encodeString(""); // TODO: Item owner
+        packet.encodeShort(0); // TODO: Item lock
+
+        if (ItemAccessor.isJavelinItem(getItemID())) {
+            packet.encodeInt(2);
+            packet.encodeBytes(new byte[]{(byte) 0x54, 0, 0, (byte) 0x34});
+        }
     }
     
     @Override

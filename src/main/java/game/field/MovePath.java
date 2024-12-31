@@ -46,8 +46,8 @@ public class MovePath {
             elem.setY(packet.decodeShort());
             elem.setVx(packet.decodeShort());
             elem.setVy(packet.decodeShort());
-            elem.setMoveAction(packet.decodeByte());
             elem.setFh(packet.decodeShort());
+            elem.setMoveAction(packet.decodeByte());
             elem.setElapse(packet.decodeShort());
             elements.add(elem);
         }
@@ -64,8 +64,8 @@ public class MovePath {
             packet.encodeShort(elem.getY());
             packet.encodeShort(elem.getVx());
             packet.encodeShort(elem.getVy());
-            packet.encodeByte(elem.getMoveAction());
             packet.encodeShort(elem.getFh());
+            packet.encodeByte(elem.getMoveAction());
             packet.encodeShort(elem.getElapse());
         }
     }

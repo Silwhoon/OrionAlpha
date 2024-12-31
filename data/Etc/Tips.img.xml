@@ -1,120 +1,228 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <imgdir name="Tips.img">
-    <imgdir name="info">
-        <imgdir name="0">
-            <int name="levelMin" value="1"/>
-            <int name="levelMax" value="5"/>
-            <int name="interval" value="30000"/>
-            <int name="all" value="20"/>
-            <string name="tip" value="novice"/>
-        </imgdir>
-        <imgdir name="1">
-            <int name="levelMin" value="6"/>
-            <int name="levelMax" value="10"/>
-            <int name="interval" value="60000"/>
-            <int name="all" value="40"/>
-            <string name="tip" value="novice2"/>
-        </imgdir>
-        <imgdir name="2">
-            <int name="levelMin" value="11"/>
-            <int name="levelMax" value="20"/>
-            <int name="interval" value="300000"/>
-            <int name="all" value="50"/>
-            <string name="tip" value="novice3"/>
-        </imgdir>
-        <imgdir name="3">
-            <int name="levelMin" value="21"/>
-            <int name="levelMax" value="999"/>
-            <int name="interval" value="600000"/>
-            <int name="all" value="100"/>
-            <string name="tip" value="novice4"/>
-        </imgdir>
+  <imgdir name="info">
+    <imgdir name="0">
+      <int name="levelMin" value="1"/>
+      <int name="levelMax" value="5"/>
+      <int name="interval" value="30000"/>
+      <int name="all" value="20"/>
+      <string name="tip" value="novice"/>
     </imgdir>
-    <imgdir name="all">
-        <string name="0" value="바른말 고운말을 사용합시다."/>
-        <string name="1" value="게임내에서 다른 사람에게 욕설이나 비방을 할 경우 게임 이용이 제한됩니다."/>
-        <string name="2" value="운영자는 비밀번호 등의 개인정보를 요구하는 일이 없습니다."/>
-        <string name="3" value="타인에게 비밀번호를 노출시키는 일이 없도록 하십시오."/>
-        <string name="4" value="게임내 버그 및 불편사항 신고는 메이플스토리 홈페이지에서 &apos;질문하기&apos;를 통해 보내주시면 됩니다."/>
-        <string name="5" value="게임내에서 불법적인 행위를 할 경우 게임 이용이 제한됩니다."/>
-        <string name="6" value="메이플스토리 홈페이지에 가시면 레벨 기준 상위 100 명의 랭킹을 볼 수 있습니다."/>
-        <string name="7" value="해킹프로그램 사용이나 기타 게임 이용에 부정한 행위를 하거나 시도할 경우 게임 이용이 제한 됩니다."/>
-        <string name="8" value="메뉴의 시스템 옵션 기능을 이용하여 게임 사운드를 조절할 수 있습니다."/>
-        <string name="9" value="메이플스토리 고객센터 번호는 02-555-0456 입니다."/>
-        <string name="10" value="메뉴의 게임 옵션 기능을 이용하여 채팅, 교환, 귓속말 기능 등을 ON/OFF 할 수 있습니다."/>
-        <string name="11" value="대화입력창에 &apos;/?&apos; 를 치시면 &apos;/&apos; 를 사용하는 명령어들의 설명을 볼 수 있습니다."/>
-        <string name="12" value="캐시 아이템 중 장비 아이템은 일반 장비 아이템 위에 함께 착용할 수 있습니다."/>
-        <string name="13" value="캐시 장비 아이템을 일반 장비 아이템위에 착용하면 기능은 일반 아이템을 모습은 캐시 아이템을 따릅니다."/>
+    <imgdir name="1">
+      <int name="levelMin" value="6"/>
+      <int name="levelMax" value="10"/>
+      <int name="interval" value="60000"/>
+      <int name="all" value="40"/>
+      <string name="tip" value="novice2"/>
     </imgdir>
-    <imgdir name="novice">
-        <string name="0" value="단축키(I,E,S,K,W,M)를 이용하여 모든 메뉴를 손쉽게 열어볼 수 있습니다."/>
-        <string name="1" value="아이템을 단축키로 지정하려면 드래그하여 단축키에 올려 놓으면 됩니다."/>
-        <string name="2" value="맵 여기저기에 숨어있는 포탈도 있으니 찾아서 이용해 보세요."/>
-        <string name="3" value="F1~F7 키를 이용해 다양한 감정표현을 할 수 있습니다."/>
-        <string name="4" value="다른 지역으로 이동하려면 필드에 있는 포탈을 이용하면 됩니다."/>
-        <string name="5" value="다른 지역으로 이동하는 포탈은 미니맵에 파란점으로 포시되어 있습니다."/>
-        <string name="6" value="한 번 메이플 아일랜드를 떠나면 다시 메이플 아일랜드로는 돌아갈 수 없습니다."/>
-        <string name="7" value="&apos;Stat&apos; 창의 &apos;Detail&apos; 버튼을 누르면 더 자세한 능력치를 볼 수 있습니다."/>
-        <string name="8" value="미니맵에는 이용자님 주변의 다른 캐릭터가 빨간점으로 표시되어 있습니다."/>
-        <string name="9" value="움직이지 않고 가만히 서 있으면 에너지가 조금씩 증가합니다."/>
-        <string name="10" value="아이템을 주우려면 &apos;Z&apos; 키나 숫자패드 &apos;0&apos; 을 누르세요."/>
-        <string name="11" value="공격은 CTRL키, 점프는 ALT키를 누르면 됩니다."/>
-        <string name="12" value="상점에 가시면 모험에 필요한 장비, 물약 등을 구입할 수 있습니다."/>
-        <string name="13" value="레벨업을 하면 &apos;Stat&apos; 창을 통해서 레벨업시 얻은 포인트를 분배 할 수 있습니다."/>
-        <string name="14" value="한 번 1차 전직을 하면 다른 직업으로 1차 전직할 수 없습니다."/>
-        <string name="15" value="장비를 장착하려면 인벤토리 창에서 장비 창으로 드래그 하거나 더블 클릭하면 됩니다."/>
-        <null name="16 - 월드맵을 보려면 'W' 키를 누르면 됩니다."/>
-        <string name="17" value="장비창을 열려면 &apos;E&apos; 키를 누르면 됩니다."/>
-        <string name="18" value="가지고 있는 아이템 목록을 볼려면 &apos;I&apos; 키를 눌러 아이템 창을 열면 됩니다."/>
-        <string name="19" value="미니맵을 보려면 &apos;M&apos; 키를 누르면 됩니다."/>
-        <string name="20" value="스킬창을 열려면 &apos;K&apos; 키를 누르면 됩니다."/>
-        <string name="21" value="자신의 캐릭터의 능력치를 보려면 &apos;S&apos; 키를 누르면 됩니다."/>
-        <string name="22" value="파티를 만드시려면 대화입력창에 &apos;/파티만들기&apos; 라고 쓰시면 됩니다."/>
-        <string name="23" value="파티장이 상대방을 파티원으로 초대하려면 &apos;/파티초대 상대방캐릭터이름&apos; 라고 쓰시면 됩니다."/>
-        <string name="24" value="파티장이 파티원을 강퇴시키려면 &apos;/파티강퇴 파티원캐릭터이름&apos; 라고 쓰시면 됩니다."/>
-        <string name="25" value="파티원이 파티에서 탈퇴하려면 &apos;/파티탈퇴&apos; 라고 쓰시면 됩니다."/>
-        <string name="26" value="가입되어있는 파티의 정보를 보시려면 &apos;/파티정보&apos; 라고 쓰시면 됩니다."/>
-        <string name="27" value="파티장이 상대방을 파티원으로 초대하려면 상대방 캐릭터 위에 마우스 오른쪽 클릭을 하면 &apos;파티초대&apos; 기능이 나옵니다."/>
-        <string name="28" value="인기도를 올리거나 내리시려면 상대방 캐릭터 위에 마우스 오른쪽 클릭을 하면 인기도 +/- 기능이 나옵니다."/>
-        <string name="29" value="인기도는 하루에 올리거나 내리거나 한번씩만 가능합니다."/>
-        <string name="30" value="한 캐릭터에게는 한 달에 한 번만 인기도를 올리거나 내릴 수 있습니다."/>
+    <imgdir name="2">
+      <int name="levelMin" value="11"/>
+      <int name="levelMax" value="20"/>
+      <int name="interval" value="300000"/>
+      <int name="all" value="50"/>
+      <string name="tip" value="novice3"/>
     </imgdir>
-    <imgdir name="novice2">
-        <string name="0" value="각 마을에는 장비, 물약을 구입할 수 있는 상점이 있습니다."/>
-        <string name="1" value="일부 아이템은 성별, 직업별로 사용이 제한됩니다. 구입시 주의하시기 바랍니다."/>
-        <string name="2" value="한 번 1차 전직을 하면 다른 직업으로는 1차 전직할 수 없습니다."/>
-        <string name="3" value="전직 후에는 캐릭터 부활시 약간의 경험치가 감소하니 조심하세요!"/>
-        <string name="4" value="퀘스트를 수행하면 상점에서 살 수 없는 아이템을 얻을 수도 있습니다."/>
-        <string name="5" value="전직을 하면 인벤토리의 칸이 늘어납니다."/>
-        <string name="6" value="전직가능 레벨에서 전직을 하지않고 레벨업하시면 스킬포인트는 주어지지 않습니다."/>
-        <string name="7" value="대화 입력창에 &apos;/교환 상대방 캐릭터이름&apos;를 입력하시면 교환창이 열립니다."/>
-        <string name="8" value="마법사는 레벨 8에서 전직하고, 다른 직업은 레벨 10에서 전직할 수 있습니다."/>
-        <string name="9" value="파티를 만드시려면 대화입력창에 &apos;/파티만들기&apos; 라고 쓰시면 됩니다."/>
-        <string name="10" value="파디장이 상대방을 파티원으로 초대하려면 &apos;/파티초대 상대방캐릭터이름&apos; 라고 쓰시면 됩니다."/>
-        <string name="11" value="파티장이 파티원을 강퇴시키려면 &apos;/파티강퇴 파티원캐릭터이름&apos; 라고 쓰시면 됩니다."/>
-        <string name="12" value="파티원이 파티에서 탈퇴하려면 &apos;/파티탈퇴&apos; 라고 쓰시면 됩니다."/>
-        <string name="13" value="가입되어있는 파티의 정보를 보시려면 &apos;/파티정보&apos; 라고 쓰시면 됩니다."/>
-        <string name="14" value="파티장이 상대방을 파티원으로 초대하려면 상대방 캐릭터 위에 마우스 오른쪽 클릭을 하면 &apos;파티초대&apos; 기능이 나옵니다."/>
-        <string name="15" value="인기도를 올리거나 내리시려면 상대방 캐릭터 위에 마우스 오른쪽 클릭을 하면 인기도 +/- 기능이 나옵니다."/>
-        <string name="16" value="인기도는 하루에 올리거나 내리거나 한번씩만 가능합니다."/>
-        <string name="17" value="한 캐릭터에게는 한 달에 한 번만 인기도를 올리거나 내릴 수 있습니다."/>
+    <imgdir name="3">
+      <int name="levelMin" value="21"/>
+      <int name="levelMax" value="30"/>
+      <int name="interval" value="600000"/>
+      <int name="all" value="60"/>
+      <string name="tip" value="novice4"/>
     </imgdir>
-    <imgdir name="novice3">
-        <string name="0" value="전직은 각 마을의 길드에서 하실 수 있습니다."/>
-        <string name="1" value="패시브 스킬은 스킬을 익히면 자동으로 적용됩니다."/>
-        <string name="2" value="액티브 스킬을 사용하시려면 스킬창에서 드래그하셔서 단축키로 설정후 사용하시면 됩니다."/>
-        <string name="3" value="각 마을에서는 그 마을 고유의 장비를 판매하고 있습니다."/>
-        <string name="4" value="전직가능 레벨에서 전직을 하지않고 레벨업하시면 스킬포인트는 주어지지 않습니다."/>
-        <string name="5" value="전직후 레벨업을 하시면 스킬 포인트가 주어집니다."/>
-        <string name="6" value="스킬 포인트는 &apos;Skill&apos; 창에서 사용하실 수 있습니다."/>
-        <string name="7" value="지하 던젼에는 강력한 몬스터들이 서식하니 주의하세요!"/>
-        <string name="8" value="강력한 몬스터를 잡으면 상점에서 구할 수 없는 진귀한 아이템을 얻을 수도 있습니다."/>
-        <string name="9" value="일정한 시간이 지나면 마법에너지가 조금씩 증가합니다."/>
-        <string name="10" value="마법에너지를 소비하는 스킬은 마법에너지가 없으면 사용할 수 없습니다."/>
-        <string name="11" value="대화 입력창에 &apos;/교환 상대방 캐릭터이름&apos;를 입력하시면 교환창이 열립니다."/>
-        <string name="12" value="2차 전직은 1차 전직후 레벨 30에서 전직 가능합니다."/>
-        <string name="13" value="레벨 30이후에 얻은 스킬포인트는 2차 전직후에 분배하는 것이 좋습니다."/>
+    <imgdir name="4">
+      <int name="levelMin" value="31"/>
+      <int name="levelMax" value="70"/>
+      <int name="interval" value="600000"/>
+      <int name="all" value="70"/>
+      <string name="tip" value="novice5"/>
     </imgdir>
-    <imgdir name="novice4">
+    <imgdir name="5">
+      <int name="levelMin" value="71"/>
+      <int name="levelMax" value="120"/>
+      <int name="interval" value="600000"/>
+      <int name="all" value="80"/>
+      <string name="tip" value="novice6"/>
     </imgdir>
+    <imgdir name="6">
+      <int name="levelMin" value="121"/>
+      <int name="levelMax" value="999"/>
+      <int name="interval" value="600000"/>
+      <int name="all" value="100"/>
+      <string name="tip" value="novice7"/>
+    </imgdir>
+  </imgdir>
+  <imgdir name="all">
+    <string name="0" value="Please refrain from using foul language in this game."/>
+    <string name="1" value="Verbal and other forms of abuse will NOT be tolerated. Abusers will be blocked from the game."/>
+    <string name="2" value="Our Game Masters will NEVER ask for your login ID, password, pin, or personal information."/>
+    <string name="3" value="NEVER give out your ID, password, or pin to ANYONE including administrators."/>
+    <string name="4" value="Users abusing the Terms of Service will be blocked from the game."/>
+    <string name="5" value="Using, selling, trading, or promoting hacking or hacking tools will result in being blocked from the game."/>
+    <string name="6" value="You can use the &apos;System Option&apos; in the menu to change your settings--sound, graphics, etc."/>
+    <string name="7" value="Use the &apos;Game Option&apos; at the menu to change settings for chat, trade requests, whisper, and more."/>
+    <string name="8" value="Type &apos;/?&apos; in the textbox to see a list of available game commands."/>
+    <string name="9" value="Cash items can be bought in the Cash Shop using Nexon Cash purchased from our website."/>
+    <string name="10" value="NEVER open an unknown attachment file from an instant messenger window or an email."/>
+    <string name="11" value="MapleStory Game Masters will NEVER send you files or contact you outside of the game."/>
+    <string name="12" value="This is an online game and online interaction involves communicating with strangers. NEVER give out your personal information such as your name, age, phone number, address to ANYONE you do not know. Protect your identity!"/>
+  </imgdir>
+  <imgdir name="novice">
+    <string name="0" value="Use HotKey&apos;s (I,E,S,K,G,W,M,R,H) to conveniently access all menus quickly."/>
+    <string name="1" value="To designate an item to a HotKey, drag the item from your inventory to the quick slot."/>
+    <string name="2" value="Look for hidden portals to expand your adventure!"/>
+    <string name="3" value="Press F1~F7 to make various facial expressions."/>
+    <string name="4" value="Use the portal on a map to move on to a different area."/>
+    <string name="5" value="Most portals are displayed on the minimap as a blue dot."/>
+    <string name="6" value="Once you leave to Victoria Island, you may not return Maple Island."/>
+    <string name="7" value="Click on &apos;Detail&apos; at the stat window for a detailed look at your character stats."/>
+    <string name="8" value="Other characters around you will be displayed on the minimap as red dots."/>
+    <string name="9" value="Stand still for a period of time to slowly regain health."/>
+    <string name="10" value="To pick up an item, press &apos;Z&apos; or &apos;0&apos; on the number pad."/>
+    <string name="11" value="Press CTRL to attack, ALT to jump."/>
+    <string name="12" value="Visit stores to purchase potions and equipment necessary for your journey."/>
+    <string name="13" value="Once you have leveled up, go to the stat window to assign your ability points acquired through leveling up."/>
+    <string name="14" value="You may only choose one job class. Once you have completed the first job advancement, your character&apos;s development path is fixed to the selected class."/>
+    <string name="15" value="To equip an item, go to the equipment inventory and drag the item onto equipped items window or just double-click the desired item in your equipment inventory."/>
+    <string name="16" value="Press &apos;W&apos; to view the world map."/>
+    <string name="17" value="Press &apos;E&apos; to view your equipped items."/>
+    <string name="18" value="Press &apos;I&apos; to open your item inventory window."/>
+    <string name="19" value="Press &apos;M&apos; to view the minimap."/>
+    <string name="20" value="Press &apos;K&apos; to open the skill window."/>
+    <string name="21" value="Press &apos;S&apos; to view your character stats."/>
+    <string name="22" value="To create a party, type &apos;/makeparty&apos; in the textbox. If you create a party, you are the party leader."/>
+    <string name="23" value="As the party leader, you may invite members to your party. To invite a member, type &apos;/partyinvite character-name&apos;in the textbox or right-click the intended character and press &quot;Invite Party&quot;. (max 6 members)"/>
+    <string name="24" value="As the party leader, type &apos;/partyexpel&apos; character-name to expel a member from your party."/>
+    <string name="25" value="To leave a party, type &apos;/leaveparty&apos;."/>
+    <string name="26" value="To view your party&apos;s information, type &apos;/partyinfo&apos;."/>
+    <string name="27" value="To raise or drop someone&apos;s fame level, right-click and rate their fame in the character info."/>
+    <string name="28" value="You can raise or drop someone&apos;s fame level once a day."/>
+    <string name="29" value="You can raise or drop a particular user&apos;s fame level once a month per user."/>
+    <string name="30" value="NEVER give out your ID, password, or pin to ANYONE including administrators."/>
+    <string name="31" value="This is an online game and online interaction involves communicating with strangers. NEVER give out your personal information such as your name, age, phone number, address to ANYONE you do not know. Protect your identity!"/>
+    <string name="32" value="NEVER open an unknown attachment file from a messenger or an email."/>
+    <string name="33" value="MapleStory gamemasters will NEVER send you files or contact you outside of the game."/>
+    <string name="34" value="The gamemaster will NEVER ask for your login ID, password, pin, or personal information."/>
+    <string name="35" value="Please refrain from using foul language in this game."/>
+    <string name="36" value="Verbal and other forms of abuse will NOT be tolerated. Abusers will be blocked from the game."/>
+    <string name="37" value="Users abusing the Terms of Service will be blocked from the game."/>
+    <string name="38" value="Using, selling, trading, or promoting hacking or hacking tools will result in being blocked from the game."/>
+    <string name="39" value="Cash items can be bought in the Cash Shop using Nexon Cash purchased from our website."/>
+    <string name="40" value="Visit the job instructors in each town to make a job advancement."/>
+    <string name="41" value="To become a magician, make the job advancement at level 8. The other job classes require a minimum level of 10."/>
+    <string name="42" value="Account sharing, selling, or trading is STRICTLY FORBIDDEN. Such accounts will be blocked."/>
+  </imgdir>
+  <imgdir name="novice2">
+    <string name="0" value="Visit town stores where you can purchase equipments and potions."/>
+    <string name="1" value="Some items have gender and job limitations. Please be aware of them before making a purchase."/>
+    <string name="2" value="You may only choose one job class. Once you have completed the first job advancement, your character&apos;s development path is fixed to the selected class."/>
+    <string name="3" value="Once the job advancement is complete, be careful as every death will cost your character some EXP."/>
+    <string name="4" value="Through quests, you may be able to acquire items unavailable in stores."/>
+    <string name="5" value="More inventory slots are added once you make the job advancement."/>
+    <string name="6" value="Make the job advancement at the earliest level allowed for your class. Skill points will not be granted for levels before the job advancement."/>
+    <string name="7" value="Type &apos;/trade character-name&apos; to request a trade with a user."/>
+    <string name="8" value="To become a magician, make the job advancement at level 8. The other job classes require a minimum level of 10."/>
+    <string name="9" value="As the party leader, you may invite members to your party. To invite a member, type &apos;/partyinvite character-name&apos;in the textbox or right-click the intended character and press &quot;Invite Party&quot;. (max 6 members)"/>
+    <string name="10" value="As the party leader, type &apos;/partyexpel&apos; character-name to expel a member from your party."/>
+    <string name="11" value="To leave a party, type &apos;/leaveparty&apos;."/>
+    <string name="12" value="To view your party&apos;s information, type &apos;/partyinfo&apos;."/>
+    <string name="13" value="To raise or drop someone&apos;s fame level, right-click another character and rate their fame in the character info."/>
+    <string name="14" value="You can raise or drop someone&apos;s fame level once a day."/>
+    <string name="15" value="You can raise or drop a particular user&apos;s fame level once a month per user."/>
+    <string name="16" value="NEVER give out your ID, password, or pin to ANYONE including administrators."/>
+    <string name="17" value="This is an online game and online interaction involves communicating with strangers. NEVER give out your personal information such as your name, age, phone number, address to ANYONE you do not know. Protect your identity!"/>
+    <string name="18" value="NEVER open an unknown attachment file from a messenger or an email."/>
+    <string name="19" value="MapleStory Game Masters will NEVER send you files or contact you outside of the game."/>
+    <string name="20" value="Our Game Masters will NEVER ask for your login ID, password, pin, or personal information."/>
+    <string name="21" value="Please refrain from using foul language in this game."/>
+    <string name="22" value="Verbal and other forms of abuse will NOT be tolerated. Abusers will be blocked from the game."/>
+    <string name="23" value="Users abusing the Terms of Service and User Abuse Policy will be blocked from the game."/>
+    <string name="24" value="Using, selling, trading, or promoting hacking or hacking tools will result in being blocked from the game."/>
+    <string name="25" value="Cash items can be bought in the Cash Shop using Nexon Cash purchased from our website."/>
+    <string name="26" value="Trading items for Nexon Cash gifts is NOT allowed. Such trades will result in being blocked from the game."/>
+    <string name="27" value="Account sharing, selling, or trading is STRICTLY FORBIDDEN. Such accounts will be blocked."/>
+  </imgdir>
+  <imgdir name="novice3">
+    <string name="0" value="The 2nd job advancement is available at level 30 (requires 1st job advancement)."/>
+    <string name="1" value="Passive skills work automatically after acquiring them."/>
+    <string name="2" value="To use an active skill, drag it out of the skill window and place it over Quick Slot to designate it with a HotKey."/>
+    <string name="3" value="All skill points earned before level 30 must be applied before making the 2nd job adv."/>
+    <string name="4" value="Make the job advancement at the earliest level allowed for your class. Skill points will not be granted for levels before the job advancement."/>
+    <string name="5" value="After the job advancement, you&apos;ll be awarded with some skill points after every level up."/>
+    <string name="6" value="Skill points can be assigned at the &apos;Skill&apos; window."/>
+    <string name="7" value="Be careful of powerful monsters in the underground dungeon!"/>
+    <string name="8" value="Defeat a powerful monster or complete a quest to acquire rare items not found in stores."/>
+    <string name="9" value="Mana Points (MP) slowly recovers over time."/>
+    <string name="10" value="The skills that require Mana Points will not work if your MP bar is empty."/>
+    <string name="11" value="Type &apos;/trade character-name&apos; to request a trade with a user."/>
+    <string name="12" value="Use the town-returning scrolls to revisit to a town quickly."/>
+    <string name="13" value="Throwing stars will not disappear from your inventory when exhausted. They can be recharged in the armor shop of each town."/>
+    <string name="14" value="NEVER give out your ID, password, or pin to ANYONE including administrators."/>
+    <string name="15" value="This is an online game and online interaction involves communicating with strangers. NEVER give out your personal information such as your name, age, phone number, address to ANYONE you do not know. Protect your identity!"/>
+    <string name="16" value="NEVER open an unknown attachment file from a messenger or an email."/>
+    <string name="17" value="MapleStory Game Masters will NEVER send you files or contact you outside of the game."/>
+    <string name="18" value="Our Game Masters will NEVER ask for your login ID, password, pin, or personal information."/>
+    <string name="19" value="Please refrain from using foul language in this game."/>
+    <string name="20" value="Verbal and other forms of abuse will NOT be tolerated. Abusers will be blocked from the game."/>
+    <string name="21" value="Users abusing the Terms of Service and User Abuse Policy will be blocked from the game."/>
+    <string name="22" value="Using, selling, trading, or promoting hacking or hacking tools will result in being blocked from the game."/>
+    <string name="23" value="Cash items can be bought in the Cash Shop using Nexon Cash purchased from our website."/>
+    <string name="24" value="Trading items for Nexon Cash gifts is NOT allowed. Such trades will result in being blocked from the game."/>
+    <string name="25" value="Account sharing, selling, or trading is STRICTLY FORBIDDEN. Such accounts will be blocked."/>
+    <string name="26" value="Meso Magnets and Item Pouches are now available for your Pets in the Cash Shop."/>
+  </imgdir>
+  <imgdir name="novice4">
+    <string name="0" value="The 2nd job advancement is available at level 30 after the 1st job advancement."/>
+    <string name="1" value="Meso Magnets and Item Pouches are now available for your Pets in the Cash Shop."/>
+    <string name="2" value="All skill points earned before level 30 must be applied before making the 2nd job adv."/>
+    <string name="3" value="It is recommended use skill points gained after level 30 on 2nd job skills."/>
+    <string name="4" value="Apply various scrolls to your weapons and armors to improve their stats."/>
+    <string name="5" value="There&apos;s a 24-Hr store available deep in the underground dungeon where you can purchase powerful potions not available in towns."/>
+    <string name="6" value="When making the 2nd job adv., the warrior may choose one of these three jobs available: Fighter, Page, or Spearman."/>
+    <string name="7" value="When making the 2nd job adv., the bowman may choose one of these two jobs available: Hunter or Crossbowman.."/>
+    <string name="8" value="When making the 2nd job adv., the magician may choose one of these three jobs available: Wizard (Fire &amp; Poison / Ice &amp; Lightning) or Cleric"/>
+    <string name="9" value="When making the 2nd job adv., the thief may choose one of these two jobs available: Assassin or Bandit"/>
+    <string name="10" value="Some quests and items require a certain level of fame."/>
+    <string name="11" value="NEVER give out your ID, password, or pin to ANYONE including administrators."/>
+    <string name="12" value="This is an online game and online interaction involves communicating with strangers. NEVER give out your personal information such as your name, age, phone number, address to ANYONE you do not know. Protect your identity!"/>
+    <string name="13" value="NEVER open an unknown attachment file from a messenger or an email."/>
+    <string name="14" value="MapleStory Game Masters will NEVER send you files or contact you outside of the game."/>
+    <string name="15" value="Our Game Masters will NEVER ask for your login ID, password, pin, or personal information."/>
+    <string name="16" value="Please refrain from using foul language in this game."/>
+    <string name="17" value="Verbal and other forms of abuse will NOT be tolerated. Abusers will be blocked from the game."/>
+    <string name="18" value="Users abusing the Terms of Service and User Abuse Policy will be blocked from the game."/>
+    <string name="19" value="Using, selling, trading, or promoting hacking or hacking tools will result in being blocked from the game."/>
+    <string name="20" value="Cash items can be bought in the Cash Shop using Nexon Cash purchased from our website."/>
+    <string name="21" value="Trading items for Nexon Cash gifts is NOT allowed. Such trades will result in being blocked from the game."/>
+    <string name="22" value="Account sharing, selling, or trading is STRICTLY FORBIDDEN. Such accounts will be blocked."/>
+  </imgdir>
+  <imgdir name="novice5">
+    <string name="0" value="The 3rd job advancement is available at level 70 (requires 2nd job advancement)."/>
+    <string name="1" value="All skill points earned before level 70 must be applied before making the 3rd job adv."/>
+    <string name="2" value="Use the sauna at Sleepywood Hotel to recover your HP and MP faster."/>
+    <string name="3" value="Some monsters are weak to certain elemental attacks."/>
+    <string name="4" value="NEVER give out your ID, password, or pin to ANYONE including administrators."/>
+    <string name="5" value="This is an online game and online interaction involves communicating with strangers. NEVER give out your personal information such as your name, age, phone number, address to ANYONE you do not know. Protect your identity!"/>
+    <string name="6" value="NEVER open an unknown attachment file from a messenger or an email."/>
+    <string name="7" value="MapleStory Game Masters will NEVER send you files or contact you outside of the game."/>
+    <string name="8" value="Our Game Masters will NEVER ask for your login ID, password, pin, or personal information."/>
+    <string name="9" value="Please refrain from using foul language in this game."/>
+    <string name="10" value="Verbal and other forms of abuse will NOT be tolerated. Abusers will be blocked from the game."/>
+    <string name="11" value="Users abusing the Terms of Service and User Abuse Policy will be blocked from the game."/>
+    <string name="12" value="Using, selling, trading, or promoting hacking or hacking tools will result in being blocked from the game."/>
+    <string name="13" value="Cash items can be bought in the Cash Shop using Nexon Cash purchased from our website."/>
+    <string name="14" value="Trading items for Nexon Cash gifts is NOT allowed. Such trades will result in being blocked from the game."/>
+    <string name="15" value="Account sharing, selling, or trading is STRICTLY FORBIDDEN. Such accounts will be blocked."/>
+  </imgdir>
+  <imgdir name="novice6">
+    <string name="0" value="The 4th job advancement is available at level 120 after 3rd job adv."/>
+    <string name="1" value="It&apos;s best for you to use your skill points gained after level 120 AFTER the 4th job adv."/>
+    <string name="2" value="All skill points earned before level 120 must be applied before making the 4th job adv."/>
+    <string name="3" value="Users abusing the Terms of Service and User Abuse Policy will be blocked from the game."/>
+    <string name="4" value="Using, selling, trading, or promoting hacking or hacking tools will result in being blocked from the game."/>
+    <string name="5" value="Cash items can be bought in the Cash Shop using Nexon Cash purchased from our website."/>
+    <string name="6" value="Trading items for Nexon Cash gifts is NOT allowed. Such trades will result in being blocked from the game."/>
+    <string name="7" value="Account sharing, selling, or trading is STRICTLY FORBIDDEN. Such accounts will be blocked."/>
+  </imgdir>
+  <imgdir name="novice7">
+  </imgdir>
 </imgdir>

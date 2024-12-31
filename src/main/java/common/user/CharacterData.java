@@ -107,6 +107,13 @@ public class CharacterData {
         packet.encodeByte(flag);
         if ((flag & DBChar.Character) != 0) {
             characterStat.encode(packet);
+            packet.encodeByte(25); // TODO: Buddy list capacity
+            packet.encodeInt(characterStat.getMoney());
+            packet.encodeByte(24); // TODO: equip slots
+            packet.encodeByte(24); // TODO: use slots
+            packet.encodeByte(24); // TODO: setup slots
+            packet.encodeByte(24); // TODO: etc slots
+            packet.encodeByte(96); // TODO: cash slots
         }
         if ((flag & DBChar.ItemSlotEquip) != 0) {
             for (int i = 1; i <= BodyPartCount; i++) {
@@ -126,7 +133,6 @@ public class CharacterData {
             }
             packet.encodeByte(0);
             int slotCount = getItemSlotCount(ItemType.Equip);
-            packet.encodeByte(slotCount);
             for (int i = 1; i <= slotCount; i++) {
                 ItemSlotBase item = itemSlot.get(ItemType.Equip).get(i);
                 if (item != null) {
@@ -139,7 +145,6 @@ public class CharacterData {
         for (int ti = ItemType.Consume; ti <= ItemType.Etc; ti++) {
             if ((flag & ItemAccessor.getItemTypeFromTypeIndex(ti)) != 0) {
                 int slotCount = getItemSlotCount(ti);
-                packet.encodeByte(slotCount);
                 for (int i = 1; i <= slotCount; i++) {
                     ItemSlotBase item = itemSlot.get(ti).get(i);
                     if (item != null) {
@@ -157,13 +162,72 @@ public class CharacterData {
                 packet.encodeInt(skillEntry.getValue());//nSLV
             }
         }
+
+        packet.encodeShort(0); // TODO: Cooldowns
+
         if ((flag & DBChar.QuestRecord) != 0) {
-            packet.encodeShort(questRecord.size());
-            for (Map.Entry<String, String> questEntry : questRecord.entrySet()) {
-                packet.encodeString(questEntry.getKey());//Unknown
-                packet.encodeString(questEntry.getValue());//Unknown
+            packet.encodeShort(0); // How many quests started
+            packet.encodeShort(0); // How many quests completed
+            // TODO: Quests
+//            packet.encodeShort(questRecord.size());
+//            for (Map.Entry<String, String> questEntry : questRecord.entrySet()) {
+//                packet.encodeString(questEntry.getKey());//Unknown
+//                packet.encodeString(questEntry.getValue());//Unknown
+//            }
+        }
+
+        packet.encodeShort(0); // TODO: What is this?
+        packet.encodeShort(0); // TODO: Crush rings
+        packet.encodeShort(0); // TODO: Friendship rings
+        packet.encodeShort(0); // TODO: Marriage
+        for (int x = 0; x < 15; x++) { // TODO: Teleport rocks
+            packet.encodeBytes(new byte[]{(byte) 0xff, (byte) 0xc9, (byte) 0x9a, 0x3b});
+        }
+        packet.encodeBytes(new byte[]{-112, 99, 58, 13, -59, 93, -56, 1}); // TODO: What is this?
+    }
+
+    public void encodeForLogin(OutPacket packet) {
+        characterStat.encode(packet);
+        packet.encodeByte(characterStat.getGender());
+        packet.encodeByte(characterStat.getSkin());
+        packet.encodeInt(characterStat.getFace());
+        packet.encodeByte(1); // Not megaphone
+        packet.encodeInt(characterStat.getHair());
+
+        for (int i = 1; i <= BodyPartCount; i++) {
+            // For some reason we handle cash weapon later
+            if (i == 11) continue;
+
+            ItemSlotBase item = equipped2.get(i);
+            if (item != null) {
+                packet.encodeByte(i);
+                packet.encodeInt(item.getItemID());
             }
         }
+        packet.encodeByte(0xFF);
+        for (int i = 1; i <= BodyPartCount; i++) {
+            ItemSlotBase item = equipped.get(i);
+            if (item != null) {
+                packet.encodeByte(i);
+                packet.encodeInt(item.getItemID());
+            }
+        }
+        packet.encodeByte(0xFF);
+
+        // For some reason the cash weapon is handled here..?
+        ItemSlotBase cashWeapon = equipped2.get(11);
+        packet.encodeInt(cashWeapon != null ? cashWeapon.getItemID() : 0);
+
+        // TODO: Pets
+        packet.encodeInt(0);
+        packet.encodeInt(0);
+        packet.encodeInt(0);
+
+        packet.encodeByte(1); // TODO: world rank enabled (next 4 ints are not sent if disabled)
+        packet.encodeInt(1); // TODO: world rank
+        packet.encodeInt(0); // TODO: move (negative is downwards)
+        packet.encodeInt(1); // TODO: job rank
+        packet.encodeInt(0); // TODO: move (negative is downwards)
     }
 
     public List<ItemSlotBase> getEquipped() {

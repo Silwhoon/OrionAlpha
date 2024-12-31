@@ -25,14 +25,16 @@ public class MobAttackInfo {
     public byte type;
     public short conMP;
     public boolean magicAttack;
+    public int elemAttr;
     
     public MobAttackInfo() {
         
     }
     
-    public MobAttackInfo(byte type, short conMP, boolean magic) {
+    public MobAttackInfo(byte type, short conMP, boolean magic, int elemAttr) {
         this.type = type;
         this.conMP = conMP;
         this.magicAttack = magic;
+        this.elemAttr = elemAttr;
     }
 }

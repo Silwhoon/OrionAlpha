@@ -223,7 +223,7 @@ public class LoginApp {
             
             WzProperty makeChar = etcDir.getItem("MakeCharInfo.img");
             if (makeChar != null) {
-                for (WzProperty makeGender : makeChar.getChildNodes()) {
+                for (WzProperty makeGender : makeChar.getNode("Info").getChildNodes()) {
                     int gender = (makeGender.getNodeName().equals("CharMale") ? 0 : 1);
                     for (WzProperty makeType : makeGender.getChildNodes()) {
                         for (WzProperty makeInfo : makeType.getChildNodes()) {

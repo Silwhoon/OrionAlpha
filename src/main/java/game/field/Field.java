@@ -28,8 +28,10 @@ import game.field.life.npc.NpcPool;
 import game.field.portal.PortalMap;
 import game.user.User;
 import game.user.UserRemote;
+import network.packet.ByteBufOutPacket;
 import network.packet.ClientPacket;
 import network.packet.InPacket;
+import network.packet.LoopbackPacket;
 import network.packet.OutPacket;
 import util.Logger;
 import util.Rect;
@@ -367,6 +369,21 @@ public class Field {
             byte chatIdx = packet.decodeByte();
             MovePath mp = null;
             if (npc.getNpcTemplate().isMove()) {
+                // TODO: Temporary workaround
+                if (true) {
+                    int length = packet.available();
+                    OutPacket tempPacket = new ByteBufOutPacket(LoopbackPacket.NpcMove);
+                    byte[] bytes = packet.decodeBytes(length - 9);
+                    tempPacket.encodeInt(npc.getGameObjectID());
+                    tempPacket.encodeByte(action);
+                    tempPacket.encodeByte(chatIdx);
+                    tempPacket.encodeBytes(bytes);
+                    splitSendPacket(ctrl.getSplit(), tempPacket, ctrl);
+                    ctrl.sendPacket(tempPacket);
+                    return;
+                }
+
+                // TODO: Work out how to get this working, need the v55 packet structure
                 mp = new MovePath();
                 mp.decode(packet);
                 if (!mp.getElem().isEmpty()) {
@@ -403,7 +420,7 @@ public class Field {
         }
     }
 
-    public void onPacket(User user, byte type, InPacket packet) {
+    public void onPacket(User user, short type, InPacket packet) {
         if (type >= ClientPacket.BEGIN_LIFEPOOL && type <= ClientPacket.END_LIFEPOOL) {
             lifePool.onPacket(user, type, packet);
         } else if (type >= ClientPacket.BEGIN_DROPPOOL && type <= ClientPacket.END_DROPPOOL) {

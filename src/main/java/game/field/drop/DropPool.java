@@ -98,7 +98,7 @@ public class DropPool {
         
     }
     
-    public void onPacket(User user, byte type, InPacket packet) {
+    public void onPacket(User user, short type, InPacket packet) {
         if (type == ClientPacket.DropPickUpRequest) {
             onPickUpRequest(user, packet);
         }

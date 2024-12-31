@@ -1105,13 +1105,13 @@ public class User extends Creature {
         }
     }
 
-    public void onFieldPacket(byte type, InPacket packet) {
+    public void onFieldPacket(short type, InPacket packet) {
         if (getField() != null) {
             getField().onPacket(this, type, packet);
         }
     }
 
-    public void onPacket(byte type, InPacket packet) {
+    public void onPacket(short type, InPacket packet) {
         switch (type) {
             case ClientPacket.UserTransferFieldRequest:
                 onTransferFieldRequest(packet);
@@ -1322,7 +1322,7 @@ public class User extends Creature {
         }
     }
 
-    public void onAttack(byte type, InPacket packet) {
+    public void onAttack(short type, InPacket packet) {
         if (secondaryStat.getStatOption(CharacterTemporaryStat.DarkSight) != 0) {
             int reset = secondaryStat.resetByCTS(CharacterTemporaryStat.DarkSight);
             sendTemporaryStatReset(reset);

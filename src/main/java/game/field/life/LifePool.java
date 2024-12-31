@@ -396,7 +396,7 @@ public class LifePool {
         redistributeLife();
     }
     
-    public void onMobPacket(User user, byte type, InPacket packet) {
+    public void onMobPacket(User user, short type, InPacket packet) {
         int mobID = packet.decodeInt();
         if (mobs.containsKey(mobID)) {
             Mob mob = mobs.get(mobID);
@@ -421,7 +421,7 @@ public class LifePool {
         }
     }
     
-    public void onNpcPacket(User user, byte type, InPacket packet) {
+    public void onNpcPacket(User user, short type, InPacket packet) {
         int npcID = packet.decodeInt();
         if (npcs.containsKey(npcID)) {
             Npc npc = npcs.get(npcID);
@@ -433,7 +433,7 @@ public class LifePool {
         }
     }
     
-    public void onPacket(User user, byte type, InPacket packet) {
+    public void onPacket(User user, short type, InPacket packet) {
         if (type >= ClientPacket.BEGIN_MOB && type <= ClientPacket.END_MOB) {
             onMobPacket(user, type, packet);
         } else if (type >= ClientPacket.BEGIN_NPC && type <= ClientPacket.END_NPC) {
@@ -741,7 +741,7 @@ public class LifePool {
         }
     }
     
-    public boolean onUserAttack(User user, byte type, byte attackType, byte mobCount, byte damagePerMob, SkillEntry skill, byte slv, byte action, byte left, byte speedDegree, int bulletItemID, List<AttackInfo> attack, Point ballStart) {
+    public boolean onUserAttack(User user, short type, byte attackType, byte mobCount, byte damagePerMob, SkillEntry skill, byte slv, byte action, byte left, byte speedDegree, int bulletItemID, List<AttackInfo> attack, Point ballStart) {
         if (user.lock()) {
             try {
                 int skillID = 0;

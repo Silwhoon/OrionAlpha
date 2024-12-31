@@ -22,28 +22,28 @@ package network.packet;
  */
 public class ClientPacket {
 
-  public static final byte
+  public static final short
       BEGIN_SOCKET = 0,
+      BackToWorldSelect = 2, // TODO: What is the GMS-like name for this
       PinAction = 3, // TODO: What is the GMS-like name for this
-      RegisterPin = 5,
-      HoverWorld = 19,
+      RegisterPin = 5, // TODO: What is the GMS-like name for this
+  // Both 0x8 and 0x9 are their own "AliveAck"..
+  // Maybe one is an acknowledge and the other is a request? idk
+  AliveAck = 10,
+      AliveReq = 11, // 0058B285
+      ExceptionLog = 17,
+      HoverWorld = 19, // TODO: What is the GMS-like name for this
+      MigrateIn = 20,
       SelectCharacter = 22,
-      SuccessfulPin = 24,
+      RequestWorldInfo = 24, // TODO: What is the GMS-like name for this
       SelectWorld = 25,
       CheckPassword = 27,
       END_SOCKET = 28,
       BEGIN_USER = 29,
 
-
-      MigrateIn = 4,
-      CheckDuplicatedID = 8,
+  CheckDuplicatedID = 8,
       CreateNewCharacter = 6,
       DeleteCharacter = 7,
-  // Both 0x8 and 0x9 are their own "AliveAck"..
-  // Maybe one is an acknowledge and the other is a request? idk
-  AliveAck = 8,
-      AliveReq = 9, // 0058B285
-      ExceptionLog = 10,
       UserTransferFieldRequest = 13,
       UserMigrateToCashShopRequest = 14,
       UserMove = 15,
@@ -82,16 +82,16 @@ public class ClientPacket {
       BEGIN_LIFEPOOL = 48,
       BEGIN_MOB = 49,
       MobMove = 50,
-      END_MOB = 51,
-      BEGIN_NPC = 52,
-      NpcMove = 53,
-      END_NPC = 54,
-      END_LIFEPOOL = 55,
-      BEGIN_DROPPOOL = 56,
+      END_MOB = 150,
+      BEGIN_NPC = 151,
+      NpcMove = 152,
+      END_NPC = 153,
+      END_LIFEPOOL = 154,
+      BEGIN_DROPPOOL = 155,
       DropPickUpRequest = 57,
-      END_DROPPOOL = 58,
-      END_FIELD = 59,
-      BEGIN_CASHSHOP = 60,
+      END_DROPPOOL = 157,
+      END_FIELD = 158,
+      BEGIN_CASHSHOP = 159,
       CashShopChargeParamRequest = 61,
       CashShopQueryCashRequest = 62,
       CashShopCashItemRequest = 63,

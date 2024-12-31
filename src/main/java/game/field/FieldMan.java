@@ -71,7 +71,13 @@ public class FieldMan {
             if (field == null || forceLoad) {
             	lock.lock();
             	try {
-            		WzPackage fieldDir = new WzFileSystem().init("Map/Map").getPackage();
+                  String subDirNo;
+                  if (fieldID >= 100000000) {
+                      subDirNo = String.valueOf(fieldID).substring(0, 1);
+                  } else {
+                      subDirNo = "0";
+                  }
+            		WzPackage fieldDir = new WzFileSystem().init("Map/Map/Map" + subDirNo).getPackage();
             		if (fieldDir != null) {
 			            field = registerField(fieldID, fieldDir.getItem(String.format("%09d.img", fieldID)));
 			            if (field != null) {

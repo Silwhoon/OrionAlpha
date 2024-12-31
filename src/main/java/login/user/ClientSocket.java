@@ -44,8 +44,6 @@ import login.WorldEntry;
 import login.user.item.NewCharEquipType;
 import network.LoginAcceptor;
 import network.SocketCodec;
-import network.SocketDecoder;
-import network.SocketEncoder;
 import network.database.LoginDB;
 import network.encryption.ClientCyphers;
 import network.packet.ByteBufOutPacket;
@@ -290,6 +288,16 @@ public class ClientSocket extends SimpleChannelInboundHandler {
     sendPacket(LoginPacket.onCheckPasswordResult(this, retCode), false);
   }
 
+  public void onBackToWorldSelect(InPacket packet) {
+    if (this.loginState != 8) {
+      onClose();
+      return;
+    }
+
+    // TODO: Assign correct loginState
+    this.loginState = 1;
+  }
+
   public void onPinAction(InPacket packet) {
     if (this.loginState != 1) {
       onClose();
@@ -370,7 +378,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
     }
   }
 
-  public void onSuccessfulPin(InPacket packet) {
+  public void onRequestWorldInfo(InPacket packet) {
     if (this.loginState != 1) {
       onClose();
       return;
@@ -491,6 +499,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
   public void onSelectCharacter(InPacket packet) {
     if (this.loginState == 8) {
       this.characterID = packet.decodeInt();
+      String macs = packet.decodeString(); // TODO
 
       if (!this.characters.containsKey(this.characterID)) {
         closeSocket();
@@ -503,7 +512,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
         if (ch != null) {
           this.loginState = 9;
 
-          sendPacket(LoginPacket.onSelectCharacterResult(1, Utilities.netIPToInt32(ch.getAddr()),
+          sendPacket(LoginPacket.onSelectCharacterResult(0, Utilities.netIPToByteArray(ch.getAddr()),
               ch.getPort(), this.characterID), false);
         }
       }
@@ -534,7 +543,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
       }
 
       this.loginState = 8;
-      sendPacket(LoginPacket.onSelectWorldResult(1, this.ssn, avatars), false);
+      sendPacket(LoginPacket.onSelectWorldResult(0, this.ssn, avatars), false);
     } else {
       Logger.logError("User %s attempting to connect to offline world %d", this.nexonClubID,
           this.worldID);
@@ -568,8 +577,6 @@ public class ClientSocket extends SimpleChannelInboundHandler {
       this.aliveReqSent = 0;
       this.lastAliveAck = packet.decodeInt();
     } else if (type == ClientPacket.AliveReq) {
-      packet.decodeInt();
-
       this.aliveReqSent = System.currentTimeMillis() / 1000;
       sendPacket(onAliveReq((int) this.aliveReqSent), false);
     } else if (type >= ClientPacket.BEGIN_SOCKET && type <= ClientPacket.END_SOCKET) {
@@ -583,8 +590,10 @@ public class ClientSocket extends SimpleChannelInboundHandler {
         case ClientPacket.RegisterPin:
           onRegisterPin(packet);
           break;
-        case ClientPacket.SuccessfulPin:
-          onSuccessfulPin(packet);
+        case ClientPacket.BackToWorldSelect:
+          onBackToWorldSelect(packet);
+        case ClientPacket.RequestWorldInfo:
+          onRequestWorldInfo(packet);
           break;
         case ClientPacket.HoverWorld:
           onHoverWorld(packet);

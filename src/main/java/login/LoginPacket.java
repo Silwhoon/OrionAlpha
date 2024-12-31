@@ -101,10 +101,10 @@ public class LoginPacket {
   public static OutPacket onSelectWorldResult(int msg, int ssn, List<CharacterData> characters) {
     OutPacket packet = new ByteBufOutPacket(LoopbackPacket.SelectWorldResult);
     packet.encodeByte(msg);
-    if (msg == 1) {
+    if (msg == 0) {
       packet.encodeByte(characters.size());
       for (CharacterData character : characters) {
-        character.encode(packet, DBChar.Character | DBChar.ItemSlotEquip);
+        character.encodeForLogin(packet);
       }
     }
     return packet;
@@ -133,13 +133,17 @@ public class LoginPacket {
     return packet;
   }
 
-  public static OutPacket onSelectCharacterResult(int result, int ip, short port, int characterID) {
+  public static OutPacket onSelectCharacterResult(int result, byte[] address, short port, int characterID) {
     OutPacket packet = new ByteBufOutPacket(LoopbackPacket.SelectCharacterResult);
-    packet.encodeByte(result);
-    if (result == 1) {
-      packet.encodeInt(ip);
+    packet.encodeShort(result);
+    if (result == 0) {
+      packet.encodeBytes(address);
       packet.encodeShort(port);
       packet.encodeInt(characterID);
+
+      // TODO: What are these?
+      packet.encodeByte(0);
+      packet.encodeInt(0);
     }
     return packet;
   }

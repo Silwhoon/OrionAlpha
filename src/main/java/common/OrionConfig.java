@@ -17,6 +17,10 @@
  */
 package common;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Various Configuration/Information
  *
@@ -36,4 +40,7 @@ public class OrionConfig {
 
     // Log Packets
     public static final boolean LOG_PACKETS = true;
+    public static final List<Short> IGNORED_PACKETS = Arrays.asList(
+        (short) 152 // NpcMove
+    );
 }

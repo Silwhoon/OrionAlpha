@@ -248,15 +248,15 @@ public class ClientSocket extends SimpleChannelInboundHandler {
     }
     
     private void processPacket(InPacket packet) {
-        final byte type = packet.decodeByte();
-        if (OrionConfig.LOG_PACKETS) {
+        final short type = packet.decodeShort();
+        if (OrionConfig.LOG_PACKETS && !OrionConfig.IGNORED_PACKETS.contains(type)) {
             Logger.logReport("[Packet Logger] [0x%s]: %s", Integer.toHexString(type).toUpperCase(), packet.toString());
         }
         if (type == ClientPacket.AliveAck) {
-            packet.decodeInt();//Acknowledged alive ack
+            //Acknowledged alive ack
         } else if (type == ClientPacket.AliveReq) {
             packet.decodeInt();//Received client alive req
-            
+
             sendPacket(onAliveReq((int)(System.currentTimeMillis() / 1000)), false);
         } else if (type == ClientPacket.MigrateIn) {
             onMigrateIn(packet);
@@ -269,7 +269,7 @@ public class ClientSocket extends SimpleChannelInboundHandler {
         }
     }
     
-    private void processUserPacket(byte type, InPacket packet) {
+    private void processUserPacket(short type, InPacket packet) {
         try {
             if (migrateState < MigrateState.Identified || migrateState > MigrateState.WaitMigrateOut) {
                 if (migrateState != MigrateState.Disconnected) {

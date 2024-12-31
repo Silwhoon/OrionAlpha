@@ -137,6 +137,7 @@ public abstract class ItemSlotBase implements Comparable<ItemSlotBase> {
             packet.encodeFileTime(dateExpire);
         } else {
             packet.encodeBool(false);
+            packet.encodeFileTime(dateExpire);
         }
     }
 

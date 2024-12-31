@@ -165,8 +165,9 @@ public class MobTemplate implements WzXML {
                 byte type = WzUtil.getByte(attackInfo.getNode("type"), 0);
                 short conMP = WzUtil.getShort(attackInfo.getNode("conMP"), 0);
                 boolean magic = WzUtil.getBoolean(attackInfo.getNode("magic"), false);
+                int elem = AttackElem.getElementAttribute(WzUtil.getString(attackInfo.getNode("elemAttr"), "P").charAt(0));
                 
-                template.attackInfo.add(new MobAttackInfo(type, conMP, magic));
+                template.attackInfo.add(new MobAttackInfo(type, conMP, magic, elem));
             }
         }
         

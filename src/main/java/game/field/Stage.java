@@ -31,7 +31,8 @@ public class Stage {
     
     public static OutPacket onSetField(User user, boolean characterData, int s1, int s2, int s3) {
         OutPacket packet = new ByteBufOutPacket(LoopbackPacket.SetField);
-        packet.encodeByte(user.getChannelID());
+        packet.encodeInt(user.getChannelID());
+        packet.encodeByte(1); // TODO: Portal Count
         packet.encodeBool(characterData);
         if (!characterData) {
             packet.encodeInt(user.getPosMap());
@@ -41,6 +42,10 @@ public class Stage {
             packet.encodeInt(s1);
             packet.encodeInt(s2);
             packet.encodeInt(s3);
+
+            // TODO: What are these?
+            packet.encodeByte(0xFF);
+
             user.getCharacter().encode(packet, DBChar.All);
         }
         return packet;
